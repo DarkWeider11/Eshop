@@ -26,11 +26,3 @@ class ProfilesSerializer(serializers.ModelSerializer):
         validated_data['user_id'] = self.initial_data.get('user_id')
         validated_data['address_id'] = self.initial_data.get('address_id')
         return models.Profiles.objects.create(**validated_data)
-
-class TokenSerializer(serializers.ModelSerializer):
-
-    user = UserSerializer(read_only=True)
-
-    class Meta:
-        model = models.Token
-        fields = '__all__'

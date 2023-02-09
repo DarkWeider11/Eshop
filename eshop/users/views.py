@@ -25,8 +25,3 @@ class ProfilesList(generics.ListCreateAPIView):
     
     queryset = models.Profiles.objects.all()
     serializer_class = serializers.ProfilesSerializer
-
-class TokenList(generics.ListCreateAPIView):
-    
-    queryset = models.Token.objects.all()
-    serializer_class = serializers.TokenSerializer

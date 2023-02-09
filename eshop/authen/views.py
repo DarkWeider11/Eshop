@@ -5,7 +5,9 @@ from users import models
 from rest_framework.views import APIView
 from rest_framework.authtoken.models import Token
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
-from rest_framework.permissions import IsAuthenticated
+import random
+import string
+from django.core.mail import send_mail
 
 
 class RegisterView(generics.CreateAPIView):
@@ -47,5 +49,25 @@ def logout_view(request):
     return response.Response(msg, status=status.HTTP_204_NO_CONTENT)
 
 
-
+@decorators.api_view(['POST'])
+def reset_password(request):
+    email = request.data['email']
+    try:
+        user = models.Users.objects.get(email=email)
+    except models.Users.DoesNotExist:
+        msg = {'User does not exist'}
+        return response.Response(msg, status=status.HTTP_404_NOT_FOUND)
+    if models.Users.objects.filter(email=email).exists():
+        characters = string.ascii_letters + string.digits + string.punctuation
+        password = ''.join(random.choice(characters) for i in range(8))
+        password.set_password = password
+        password.save()
+        send_mail(
+          'reset_password',
+          f'You can find your password here:  {password}',
+          'admin@admin.com',
+          [email],
+        )
+        msg={'Email Sent Successfully'}
+        return response.Response(msg, status=status.HTTP_200_OK)
 
