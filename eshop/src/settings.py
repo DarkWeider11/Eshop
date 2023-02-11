@@ -160,7 +160,7 @@ SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(hours=240), 
     'ROTATE_REFRESH_TOKENS': False, 
     'BLACKLIST_AFTER_ROTATION': True, 
-    'UPDATE_LAST_LOGIN': True, 
+    'UPDATE_LAST_LOGIN': False, 
  
     'ALGORITHM': 'HS256', 
     'SIGNING_KEY': SECRET_KEY, 
