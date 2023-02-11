@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 """
 Django settings for src project.
 
@@ -30,13 +32,7 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-        'authen.authentication.BearerAuthentication',
-    ]
-}
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -51,6 +47,8 @@ INSTALLED_APPS = [
     "phonenumber_field",
     'rest_framework',
     'rest_framework.authtoken',
+    'rest_framework_simplejwt',
+
 ]
 
 MIDDLEWARE = [
@@ -62,6 +60,22 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+
+REST_FRAMEWORK = { 
+    'DEFAULT_AUTHENTICATION_CLASSES': ( 
+        'rest_framework_simplejwt.authentication.JWTAuthentication', 
+    ), 
+    'DEFAULT_THROTTLE_CLASSES': [ 
+        'rest_framework.throttling.AnonRateThrottle', 
+        'rest_framework.throttling.UserRateThrottle', 
+    ], 
+    'DEFAULT_THROTTLE_RATES': { 
+        'anon': '5000/day', 
+        'user': '5000/day', 
+    }, 
+}
+
 
 ROOT_URLCONF = 'src.urls'
 
@@ -140,4 +154,32 @@ EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
 EMAIL_HOST_USER = '2fa861c88aa868'
 EMAIL_HOST_PASSWORD = '2a577e571ea6a7'
 EMAIL_PORT = '2525'
+
+SIMPLE_JWT = { 
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=600), 
+    'REFRESH_TOKEN_LIFETIME': timedelta(hours=240), 
+    'ROTATE_REFRESH_TOKENS': False, 
+    'BLACKLIST_AFTER_ROTATION': True, 
+    'UPDATE_LAST_LOGIN': True, 
+ 
+    'ALGORITHM': 'HS256', 
+    'SIGNING_KEY': SECRET_KEY, 
+    'VERIFYING_KEY': 'HS256', 
+    'AUDIENCE': None, 
+    'ISSUER': None, 
+ 
+    'AUTH_HEADER_TYPES': ('Bearer',), 
+    'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION', 
+    'USER_ID_FIELD': 'id', 
+    'USER_ID_CLAIM': 'user_id', 
+ 
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',), 
+    'TOKEN_TYPE_CLAIM': 'token_type', 
+ 
+    'JTI_CLAIM': 'jti', 
+ 
+    'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp', 
+    'SLIDING_TOKEN_LIFETIME': timedelta(minutes=600), 
+    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(hours=240), 
+}
 

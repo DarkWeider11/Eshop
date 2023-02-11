@@ -42,10 +42,7 @@ class ChangePasswordSerializer(serializers.Serializer):
 
     def validate(self, attrs):
 
-
-
         user = self.context['request'].user
-        breakpoint()
         if not user.check_password(attrs):
             raise serializers.ValidationError(('Your old password was entered incorrectly. Please enter it again.'))
         if attrs['old_password'] == attrs['password']:

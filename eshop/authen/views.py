@@ -2,12 +2,13 @@ from rest_framework import generics, response, status
 from authen import serializers
 from rest_framework import decorators
 from users import models
-from rest_framework.views import APIView
-from rest_framework.authtoken.models import Token
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 import random
 import string
 from django.core.mail import send_mail
+from rest_framework_simplejwt.tokens import RefreshToken
+from datetime import datetime
+
 
 
 class RegisterView(generics.CreateAPIView):
@@ -18,6 +19,7 @@ class RegisterView(generics.CreateAPIView):
 @decorators.api_view(['POST'])
 def login_view(request):
 
+#verificarea email si parola
     serializer = serializers.LoginSerializer(data=request.data)
     serializer.is_valid(raise_exception=True)
     try:
@@ -28,11 +30,25 @@ def login_view(request):
     if user.check_password(request.data['password']) is False:
         msg = {'Wrong password'}
         return response.Response(msg, status=status.HTTP_400_BAD_REQUEST)
-    token = Token.objects.create(user_id=user.pk)
+
+#generarea token
+    token = RefreshToken.for_user(user) 
+    try:
+        user_token, _ = models.UserToken.objects.get_or_create(
+            user_id=user.pk,
+            access_token=str(token.access_token),
+            refresh_token=str(token),
+            created=datetime.now()
+            )
+    except models.UserToken.DoesNotExist: 
+        msg = {'No tokens were created for user'} 
+        return response.Response(msg ,status.HTTP_404_NOT_FOUND) 
+    user.last_login = datetime.now() 
+    user.save(update_fields=['last_login'])
     data = {
         'user_id': user.pk,
         'username': user.username,
-        'token': token.key
+        'access_token': user_token.access_token
     }
     msg = {'Successfully login'}
     return response.Response(data=data, status=status.HTTP_200_OK)
@@ -45,7 +61,6 @@ def login_view(request):
 @decorators.authentication_classes([SessionAuthentication, BasicAuthentication])
 def logout_view(request):
     msg = {'Logout successfully'}
-    breakpoint()
     return response.Response(msg, status=status.HTTP_204_NO_CONTENT)
 
 
@@ -60,8 +75,8 @@ def reset_password(request):
     if models.Users.objects.filter(email=email).exists():
         characters = string.ascii_letters + string.digits + string.punctuation
         password = ''.join(random.choice(characters) for i in range(8))
-        password.set_password = password
-        password.save()
+        user.set_password = password
+        user.save()
         send_mail(
           'reset_password',
           f'You can find your password here:  {password}',
