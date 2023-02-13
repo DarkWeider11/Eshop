@@ -33,37 +33,11 @@ class LoginSerializer(serializers.Serializer):
     password = serializers.CharField()
     
 
-# class ChangePasswordSerializer(serializers.Serializer):
-
-#     old_password = serializers.CharField(required=True)
-#     password = serializers.CharField(required=True)
-#     confirm_password = serializers.CharField(required=True)
-
-
-#     def validate(self, attrs):
-
-#         if not user.check_password(attrs):
-#             raise serializers.ValidationError(('Your old password was entered incorrectly. Please enter it again.'))
-#         if attrs['old_password'] == attrs['password']:
-#             raise serializers.ValidationError('Your old password is match whith your current password')
-#         if attrs['password'] != attrs['confirm_password']:
-#             raise serializers.ValidationError('Your password does not match')
-#         elif len(attrs['password']) < 8:
-#             raise serializers.ValidationError('Your password is too short')
-#         elif len(attrs['password']) > 16:
-#             raise serializers.ValidationError('Your password is too long')
-#         return attrs
-
-
-#     def update(self, instance, validate_data):
-#         user_data = validate_data.pop('user')
-#         user = instance.user
-
-#         instance.password = validate_data.get('password', instance.password)
-#         instance.confirm_password = validate_data.get('confirm_password', instance.confirm_password)
-#         instance.save()
-
-#         return instance
+class ChangePasswordSerializer(serializers.Serializer):
+    
+    old_password = serializers.CharField()
+    new_password = serializers.CharField()
+    confirm_new_password = serializers.CharField()
 
 
 

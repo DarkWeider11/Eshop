@@ -10,7 +10,6 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from datetime import datetime
 
 
-
 class RegisterView(generics.CreateAPIView):
 
     serializer_class = serializers.RegisterSerializer
@@ -19,7 +18,7 @@ class RegisterView(generics.CreateAPIView):
 @decorators.api_view(['POST'])
 def login_view(request):
 
-#verificarea email si parola
+    #verificare email si parola
     serializer = serializers.LoginSerializer(data=request.data)
     serializer.is_valid(raise_exception=True)
     try:
@@ -30,67 +29,62 @@ def login_view(request):
     if user.check_password(request.data['password']) is False:
         msg = {'Wrong password'}
         return response.Response(msg, status=status.HTTP_400_BAD_REQUEST)
+    
 
-#generarea token
-    token = RefreshToken.for_user(user) 
     try:
+        user_token = models.UserToken.objects.get(user_id=user.pk)
+    except models.UserToken.DoesNotExist:
+        token = RefreshToken.for_user(user)
         user_token, _ = models.UserToken.objects.get_or_create(
             user_id=user.pk,
             access_token=str(token.access_token),
             refresh_token=str(token),
             created=datetime.now()
-            )
-    except models.UserToken.DoesNotExist: 
-        msg = {'No tokens were created for user'} 
-        return response.Response(msg ,status.HTTP_404_NOT_FOUND) 
-
+        ) 
+    else:
+        if user_token.access_token is None or user_token.refresh_token is None:
+            token = RefreshToken.for_user(user)
+            user_token.access_token = str(token.access_token)
+            user_token.refresh_token = str(token)
+            user_token.created = datetime.now()
+            user_token.save(update_fields=['access_token', 'refresh_token', 'created'])
+    
     user.last_login = datetime.now() 
     user.save(update_fields=['last_login'])
+
     data = {
         'user_id': user.pk,
         'username': user.username,
-        'access_token': user_token.access_token
+        'acces_taken': user_token.access_token,
     }
     msg = {'Successfully login'}
     return response.Response(data=data, status=status.HTTP_200_OK)
 
 
-
 @decorators.api_view(['POST'])
-@decorators.authentication_classes([SessionAuthentication, BasicAuthentication])
 def logout_view(request):
-    user_id = request.data.get('user_id')
-    if user_id is None:
-        return response.Response({'error': 'user_id is required'}, status=status.HTTP_400_BAD_REQUEST)
-    
-    user_token = models.UserToken.objects.filter(user_id=user_id).first()
-    if user_token is None:
-        return response.Response({'error': 'user_token not found'}, status=status.HTTP_404_NOT_FOUND)
-    
+    user_token = models.UserToken.objects.get(
+        user_id=request.user.pk,
+        access_token=request.auth
+    )
+    #user_token.delete()
     user_token.access_token = None
     user_token.refresh_token = None
     user_token.created = datetime.now()
     user_token.save()
-    
-    return response.Response({'message': 'logged out successfully'}, status=status.HTTP_200_OK)
-
-# @decorators.api_view(['POST'])
-# @decorators.authentication_classes([SessionAuthentication, BasicAuthentication])
-# def logout_view(request):
-#     msg = {'Logout successfully'}
-#     return response.Response(msg, status=status.HTTP_204_NO_CONTENT)
-
-
-
+    msg = {'Logout Successfully'}
+    return response.Response(msg, status=status.HTTP_200_OK)
 
 
 @decorators.api_view(['POST'])
-def reset_password(request):
+def resetpassword_view(request):
     email = request.data['email']
     try:
         user = models.Users.objects.get(email=email)
     except models.Users.DoesNotExist:
-         return response.Response({'error': 'User does not exist'}, status=status.HTTP_404_NOT_FOUND)
+        msg = {'User does not exist'}
+        return response.Response(msg, status=status.HTTP_404_NOT_FOUND)
+
     if models.Users.objects.filter(email=email).exists():
         characters = string.ascii_letters + string.digits + string.punctuation
         password = ''.join(random.choice(characters) for i in range(8))
@@ -102,5 +96,35 @@ def reset_password(request):
           'admin@admin.com',
           [email],
         )
-        return response.Response({'message': 'Password reset email sent successfully'}, status=status.HTTP_200_OK)
+        msg = {'Password reset email sent successfully'}
+        return response.Response(msg, status=status.HTTP_200_OK)
 
+
+@decorators.api_view(['PATCH'])
+def change_password_view(request):
+    user = request.user
+    serializer = serializers.ChangePasswordSerializer(data=request.data)
+    if serializer.is_valid():
+        if not user.check_password(serializer.data.get("old_password")):
+            msg = {'Wrong password'}
+            return response.Response(msg, status=status.HTTP_400_BAD_REQUEST)
+
+        if serializer.data.get("new_password") != serializer.data.get("confirm_new_password"):
+            msg = {'Password do not match'}
+            return response.Response(msg, status=status.HTTP_400_BAD_REQUEST)
+
+        if len(serializer.data.get("new_password")) < 8:
+            msg = {'Your password is to short'}
+            return response.Response(msg, status=status.HTTP_400_BAD_REQUEST)
+
+        if len(serializer.data.get("new_password")) > 16:
+            msg = {'Your password is to long'}
+            return response.Response(msg, status=status.HTTP_400_BAD_REQUEST)
+
+
+        user.set_password(serializer.data.get("new_password"))
+        user.save()
+        msg = {'Password was modified successfully'}
+        return response.Response(msg, status=status.HTTP_200_OK)
+
+    return response.Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
