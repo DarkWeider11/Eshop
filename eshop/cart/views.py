@@ -1,7 +1,8 @@
 from products.models import Produs
 from rest_framework import generics
 from cart import models, serializers
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view 
+from rest_framework import response, status
 
 # Create your views here.
 class CartList(generics.ListCreateAPIView):
@@ -27,7 +28,8 @@ def checkout(request):
     carts = request.data.get("carts")
     payment = request.data.get("paymentcart")
     products_id = []
-    checkout_cart = []       
+    checkout_cart = []
+    missing_ids = []       
     for cart in carts:
         product_id.append(cart.get('id'))
     for product_id in products_id:
@@ -38,7 +40,10 @@ def checkout(request):
             for x in carts:
                 if i['id'] == x['id']:
                     checkout_cart.append(x)
-        # cauta care nui
+                elif i['id'] != x['id']:
+                    missing_ids.append(i)
+        msg = {'missing_ids': missing_ids}
+        return response.Response(msg, status=status.HTTP_404_NOT_FOUND) 
         # ori rescrii/update carts
         # msg {'warrning': 'Id telefon nu este disponibil'}
         # resposnse.Response(msg, status)
@@ -50,3 +55,5 @@ def checkout(request):
     for product in products:
         product.checkout = True
         product.save()
+
+        

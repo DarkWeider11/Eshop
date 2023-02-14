@@ -2,7 +2,6 @@ from rest_framework import generics, response, status
 from authen import serializers
 from rest_framework import decorators
 from users import models
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 import random
 import string
 from django.core.mail import send_mail
@@ -46,8 +45,10 @@ def login_view(request):
             token = RefreshToken.for_user(user)
             user_token.access_token = str(token.access_token)
             user_token.refresh_token = str(token)
+            user_token.logout_time = None
             user_token.created = datetime.now()
-            user_token.save(update_fields=['access_token', 'refresh_token', 'created'])
+            
+            user_token.save(update_fields=['access_token', 'refresh_token', 'created', 'logout_time'])
     
     user.last_login = datetime.now() 
     user.save(update_fields=['last_login'])
@@ -70,7 +71,7 @@ def logout_view(request):
     #user_token.delete()
     user_token.access_token = None
     user_token.refresh_token = None
-    user_token.created = datetime.now()
+    user_token.logout_time = datetime.now()
     user_token.save()
     msg = {'Logout Successfully'}
     return response.Response(msg, status=status.HTTP_200_OK)
@@ -89,7 +90,7 @@ def resetpassword_view(request):
         characters = string.ascii_letters + string.digits + string.punctuation
         password = ''.join(random.choice(characters) for i in range(8))
         user.set_password(password)
-        user.save()
+        user.save(update_fields=['password'])
         send_mail(
           'reset_password',
           f'You can find your password here:  {password}',
@@ -120,10 +121,9 @@ def change_password_view(request):
         if len(serializer.data.get("new_password")) > 16:
             msg = {'Your password is to long'}
             return response.Response(msg, status=status.HTTP_400_BAD_REQUEST)
-
-
+            
         user.set_password(serializer.data.get("new_password"))
-        user.save()
+        user.save(update_fields=['password'])
         msg = {'Password was modified successfully'}
         return response.Response(msg, status=status.HTTP_200_OK)
 

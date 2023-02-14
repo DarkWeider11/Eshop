@@ -50,7 +50,8 @@ class Profiles(models.Model):
 class UserToken(models.Model): 
  
     user = models.ForeignKey(Users, on_delete=models.CASCADE) 
-    created = models.DateTimeField(auto_now_add=True) 
+    created = models.DateTimeField(auto_now_add=True)
+    logout_time = models.DateTimeField(auto_now_add=True, null=True)
     access_token = models.CharField(max_length=255, null=True) 
     refresh_token = models.CharField(max_length=255, null=True)
 
