@@ -49,8 +49,11 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_framework_simplejwt',
     'corsheaders',
+<<<<<<< HEAD
     'django_filters'
 
+=======
+>>>>>>> c68e42e (adjust some shit)
 ]
 
 MIDDLEWARE = [
@@ -191,6 +194,7 @@ SIMPLE_JWT = {
 }
 
 CORS_ALLOWED_ORIGINS = [
+<<<<<<< HEAD
 "https://domain.com",
 "https://api.domain.com",
 "http://localhost:8000",
@@ -205,4 +209,10 @@ CORS_ALLOW_METHODS = [
 'PATCH',
 'POST',
 'PUT',
+=======
+    "https://example.com",
+    "https://sub.example.com",
+    "http://localhost:8000",
+    "http://127.0.0.1:8000",
+>>>>>>> c68e42e (adjust some shit)
 ]
