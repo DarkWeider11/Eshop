@@ -41,3 +41,5 @@ class Produs(models.Model):
     updated_date = models.DateField(null=True)
     checkout = models.BooleanField(default=False)
     SubCategoriesType = models.ForeignKey(SubCategoriesType, on_delete= models.CASCADE)
+    
+    

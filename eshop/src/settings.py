@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_framework_simplejwt',
     'corsheaders',
+    'django_filters'
 
 ]
 
@@ -77,6 +78,9 @@ REST_FRAMEWORK = {
         'anon': '5000/day', 
         'user': '5000/day', 
     }, 
+    'DEFAULT_FILTER_BACKENDS': (
+        'django_filters.rest_framework.DjangoFilterBackend',
+    )
 }
 
 
