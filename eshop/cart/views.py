@@ -44,9 +44,6 @@ def checkout(request):
                     missing_ids.append(i)
         msg = {'missing_ids': missing_ids}
         return response.Response(msg, status=status.HTTP_404_NOT_FOUND) 
-        # ori rescrii/update carts
-        # msg {'warrning': 'Id telefon nu este disponibil'}
-        # resposnse.Response(msg, status)
         pass
     cart = models.Cart.objects.create(user_id=request.user.pk, produs=carts)
     # acum trebu sa activeze signal pentru payment
