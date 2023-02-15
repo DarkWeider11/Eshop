@@ -1,6 +1,6 @@
-from rest_framework import generics
+from rest_framework import generics, permissions
 from users import models, serializers
-from helpers import permissions
+from helpers import permissions as helper_permissions
 
 
 class UserList(generics.ListCreateAPIView):
@@ -19,8 +19,8 @@ class AddressList(generics.ListCreateAPIView):
     
     queryset = models.Address.objects.all()
     serializer_class = serializers.AddressSerializer
-    permission_classes = [permissions.IsAdmin]
-    authentication_classes = [models.TokenAuthentication]
+    permission_classes = [helper_permissions.BlockAnonymousUser]
+    # authentication_classes = [models.TokenAuthentication]
     
     
 class ProfilesList(generics.ListCreateAPIView):
