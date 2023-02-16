@@ -11,6 +11,8 @@ urlpatterns = [
     
     path('produs-filter', views.ProdusList.as_view()),
     
+    path('search', views.SearchView.as_view()),
+    
     path('get-produs/''<int:pk>', views.ProdusListDetaliedView.as_view()),
     path('get-categories/''<int:pk>', views.CategoriesListDetaliedView.as_view()),
     path('get-subcategories/''<int:pk>', views.SubCategoriesListDetaliedView.as_view()),

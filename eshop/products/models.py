@@ -46,3 +46,5 @@ class Images(models.Model):
     
     produs = models.ForeignKey(Produs,  on_delete=models.CASCADE, related_name = "images")
     image = models.ImageField(upload_to="media/products", max_length=100, null=True, default='')
+    
+    

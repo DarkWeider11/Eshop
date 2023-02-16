@@ -52,6 +52,8 @@ class ProdusSerializer(serializers.ModelSerializer):
         uploaded_images = validated_data.pop("uploaded_images")
         produs = models.Produs.objects.create(**validated_data)
         for image in uploaded_images:
-            # Create a new `Images` object and associate it with the newly created `Produs`.
+   
             models.Images.objects.create(produs=produs, image=image)
         return produs
+
+
