@@ -193,27 +193,31 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(hours=240), 
 }
 
+# Lista originilor permise pentru CORS
 CORS_ALLOWED_ORIGINS = [
-"https://domain.com",
-"https://api.domain.com",
-"http://localhost:8000",
-"http://127.0.0.1:8000",
-
+    "https://domain.com",
+    "https://api.domain.com",
+    "http://localhost:8000",
+    "http://127.0.0.1:8000",
 ]
 
+# Lista metodelor permise pentru CORS
 CORS_ALLOW_METHODS = [
-'DELETE',
-'GET',
-'OPTIONS',
-'PATCH',
-'POST',
-'PUT',
+    "DELETE",
+    "GET",
+    "OPTIONS",
+    "PATCH",
+    "POST",
+    "PUT",
+]
 
+# Adăugăm originile permise la lista CORS_ALLOWED_ORIGINS
+CORS_ALLOWED_ORIGINS += [
     "https://example.com",
     "https://sub.example.com",
     "http://localhost:8000",
     "http://127.0.0.1:8000",
-
 ]
+
 
 

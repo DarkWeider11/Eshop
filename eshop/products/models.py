@@ -41,7 +41,7 @@ class Produs(models.Model):
     checkout = models.BooleanField(default=False)
     SubCategoriesType = models.ForeignKey(SubCategoriesType, on_delete= models.CASCADE)
     
-    
+
 class Images(models.Model):
     
     produs = models.ForeignKey(Produs,  on_delete=models.CASCADE, related_name = "images")
