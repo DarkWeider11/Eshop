@@ -56,7 +56,7 @@ def login_view(request):
     data = {
         'user_id': user.pk,
         'username': user.username,
-        'acces_taken': user_token.access_token,
+        'access_token': user_token.access_token,
     }
     msg = {'Successfully login'}
     return response.Response(data=data, status=status.HTTP_200_OK)
