@@ -34,3 +34,5 @@ class PaymentCart(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     payment = models.IntegerField(choices=Payment_CHOICES, default=0)
     delivery = models.IntegerField(choices=Store_Pickup_CHOICES, default=0)
+    
+    

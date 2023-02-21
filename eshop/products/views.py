@@ -6,6 +6,7 @@ from rest_framework.response import Response
 
 class ProdusFilter(filters.FilterSet):
     
+    # cautarea mai multe produse odata
     class Meta:
         model = models.Produs
         fields =  {
@@ -30,7 +31,7 @@ class SearchView(APIView):
         'subcategoriestype': models.SubCategoriesType,
         'produs': models.Produs,
     }
-
+        # introtudem mai mute q concomitent
     def get(self, request, format=None):
         search_query = request.query_params.get('q', '').strip()
         # strip() este utilizat pentru a elimina orice spații albe de la începutul sau sfârșitul acestui șir.

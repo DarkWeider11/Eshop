@@ -1,4 +1,5 @@
 from datetime import timedelta
+import os
 
 """
 Django settings for src project.
@@ -51,8 +52,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'django_filters',
     'dashboard.apps.DashboardConfig',
-
-
+    
 
 ]
 
@@ -223,3 +223,11 @@ CORS_ALLOWED_ORIGINS += [
 
 
 
+STATIC_URL = '/static/'
+MEDIA_ROOT = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+    )
