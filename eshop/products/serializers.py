@@ -57,3 +57,4 @@ class ProdusSerializer(serializers.ModelSerializer):
         return produs
 
 
+# to reprezentation 
