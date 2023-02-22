@@ -196,3 +196,5 @@ misc/dbdata/
 static/
 media/
 report.xml
+node_modules/
+.DS_Store
