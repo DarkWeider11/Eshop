@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "backend/**/*",
+      "src": "eshop/**/*",
       "use": "@vercel/python",
       "config": {
         "maxLambdaSize": "15mb",
@@ -20,7 +20,7 @@
     }
   ],
   "routes": [
-    { "src": "/api/.*", "dest": "backend/wsgi.py" },
+    { "src": "/api/.*", "dest": "eshop/wsgi.py" },
     { "src": "/(.*)", "dest": "frontend/build/$1" }
   ]
 }
