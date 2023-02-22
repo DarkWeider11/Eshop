@@ -1,15 +1,22 @@
-
 {
-  
   "builds": [
     {
-      "src": "eshop/**/*",
-      "use": "@vercel/python",
+      "src": "frontend/package.json",
+      "use": "@vercel/static-build",
+      "config": { "distDir": "frontend/build" }
+    },
+    {
+      "src": "eshop/wsgi.py",
+      "use": "@ardnt/vercel-python-wsgi",
       "config": {
         "maxLambdaSize": "15mb",
         "runtime": "python3.9",
-        "buildCommand": "python manage.py collectstatic --noinput"
-      }}
-  ]
+        "output": "handler.py"
+      }
     }
-
+  ],
+  "routes": [
+    { "src": "/api/(.*)", "dest": "eshop/wsgi.py" },
+    { "src": "/(.*)", "dest": "frontend/index.html" }
+  ]
+}
