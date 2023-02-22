@@ -171,3 +171,4 @@ class SubCategoriesTypeListDetaliedView(generics.RetrieveUpdateDestroyAPIView):
     
  
 
+#digital options how to deploymen tdjango aplications
