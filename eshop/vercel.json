@@ -1,5 +1,6 @@
+
 {
-  "version": 2,
+  
   "builds": [
     {
       "src": "eshop/**/*",
@@ -8,19 +9,7 @@
         "maxLambdaSize": "15mb",
         "runtime": "python3.9",
         "buildCommand": "python manage.py collectstatic --noinput"
-      }
-    },
-    {
-      "src": "frontend/**/*",
-      "use": "@vercel/static",
-      "config": {
-        "buildCommand": "npm run build",
-        "outputDirectory": "frontend/build"
-      }
-    }
-  ],
-  "routes": [
-    { "src": "/api/.*", "dest": "eshop/wsgi.py" },
-    { "src": "/(.*)", "dest": "frontend/build/$1" }
+      }}
   ]
-}
+    }
+
