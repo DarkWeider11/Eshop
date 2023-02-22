@@ -1,24 +1,15 @@
+
 {
-    "version": 2,
-    "builds": [
-      {
-        "src": "frontend/package.json",
-        "use": "@vercel/static-build",
-        "config": {
-          "distDir": "frontend/build",
-          "maxLambdaSize": "50mb"
-        }
-      },
-      {
-        "src": "echop/wsgi.py",
+    "builds": [{
+        "src": "eshop/wsgi.py",
         "use": "@ardnt/vercel-python-wsgi",
-        "config": {
-          "maxLambdaSize": "50mb"
-        }
-      }
-    ],
+        "config": { "maxLambdaSize": "15mb" }
+    }],
     "routes": [
-      { "src": "/api/(.*)", "dest": "echop/wsgi.py" },
-      { "src": "/(.*)", "dest": "frontend/build/$1" }
+        {
+            "src": "/(.*)",
+            "dest": "eshop/wsgi.py"
+        }
     ]
-  }
+}
+
