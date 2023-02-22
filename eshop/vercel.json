@@ -1,22 +1,19 @@
 {
+  "version": 2,
   "builds": [
     {
-      "src": "frontend/package.json",
-      "use": "@vercel/static-build",
-      "config": { "distDir": "frontend/build" }
-    },
-    {
-      "src": "eshop/wsgi.py",
-      "use": "@ardnt/vercel-python-wsgi",
-      "config": {
-        "maxLambdaSize": "15mb",
-        "runtime": "python3.9",
-        "output": "handler.py"
-      }
+      "src": "main.py",
+      "use": "@vercel/python"
     }
   ],
   "routes": [
-    { "src": "/api/(.*)", "dest": "eshop/wsgi.py" },
-    { "src": "/(.*)", "dest": "frontend/index.html" }
-  ]
+    {
+      "src": "/api/(.*)",
+      "dest": "/src/"
+    }
+  ],
+  "env": {
+    "PYTHONUNBUFFERED": "true",
+    "DJANGO_SETTINGS_MODULE": "src.settings"
+  }
 }
