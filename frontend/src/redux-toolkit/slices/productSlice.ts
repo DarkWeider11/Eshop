@@ -20,6 +20,13 @@ interface ImagesResponse {
   produs: number;
 }
 
+interface FilterProducts {
+  query?: string;
+  nume?: string;
+  manufacturer?: string;
+  price?: number;
+}
+
 export const productsApi = createApi({
   reducerPath: "productsApi",
   baseQuery: fetchBaseQuery({
@@ -27,15 +34,16 @@ export const productsApi = createApi({
   }),
   tagTypes: ["Products"],
   endpoints: (builder) => ({
-    getProducts: builder.query<ProductsResponse[], void>({
-      query: () => {
+    getProducts: builder.query<ProductsResponse[], { query?: string }>({
+      query: ({ query = "" }) => {
         return {
-          url: "/get-produs",
+          url: `/get-produs?nume=${query}`,
           method: "GET",
         };
       },
       providesTags: ["Products"],
     }),
+
     imagesProducts: builder.query<ImagesResponse[], void>({
       query: () => {
         return {
@@ -45,9 +53,22 @@ export const productsApi = createApi({
       },
       providesTags: ["Products"],
     }),
+    filterProducts: builder.query<ProductsResponse[], FilterProducts>({
+      query: ({ query = "", manufacturer = "" }) => {
+        console.log(query);
+
+        return `/produs-filter?nume=${query}&manufacturer=${manufacturer}`;
+      },
+      providesTags: ["Products"],
+    }),
   }),
 });
-export const { useGetProductsQuery, useImagesProductsQuery } = productsApi;
+export const {
+  useGetProductsQuery,
+  useImagesProductsQuery,
+  useFilterProductsQuery,
+  useLazyFilterProductsQuery,
+} = productsApi;
 
 const initialState: ProductsResponse = {
   id: 0,
