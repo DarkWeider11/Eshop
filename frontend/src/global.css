@@ -1,0 +1,96 @@
+/* Product */
+.products-container {
+  padding: 3rem 3rem;
+}
+
+.products-container h2 {
+  font-size: 40px;
+  font-weight: 400;
+  text-align: center;
+}
+
+.products {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.product {
+  width: 390px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 1rem auto;
+  padding: 1rem;
+  border-radius: 15px;
+  box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.5),
+    2px 2px 5px rgba(94, 104, 121, 0.3);
+}
+
+.product img {
+  width: 50%;
+  margin-top: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.product h3 {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.product .details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.product .details .price {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.product .OnButton {
+  width: 100%;
+  height: 40px;
+  border-radius: 5px;
+  margin-top: 2rem;
+  font-weight: 400;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+/* MainPage */
+
+/* <div className="products-container">
+            {isLoading ? (
+              <p>Loading...</p>
+            ) : error ? (
+              <p>error occured..</p>
+            ) : (
+              <>
+                <h2>Products</h2>
+                <div className="products">
+                  {products?.map((el) => (
+                    <div key={el.id} className="product">
+                      <h3>{el.nume}</h3>
+                      {el.images.length
+                        ? el.images.map(({ image, id, produs }) => {
+                            if (image)
+                              return <img key={id} src={image} alt={produs} />;
+                          })
+                        : "NO Image"}
+                      <div className="details">
+                        <span>{el.product_description}</span>
+                        <span className="price">${el.price}</span>
+                      </div>
+                      <OnButton>Add to cart</OnButton>
+                    </div>
+                  ))}
+                </div>
+              </>
+              </div>
+            )} */
