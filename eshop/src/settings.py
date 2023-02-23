@@ -1,7 +1,6 @@
 from datetime import timedelta
 from pathlib import Path
 import os
-import dj_database_url
 
 
 """
@@ -115,15 +114,14 @@ WSGI_APPLICATION = 'src.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql',
-    #     'NAME': 'railway',
-    #     'USER': 'postgres',
-    #     'PASSWORD': 'KePVBOId4o1c9kK2wJA2',
-    #     'HOST': 'containers-us-west-83.railway.app',
-    #     'PORT': '6507',
-    # }
-    'default': dj_database_url.config(conn_max_age=600, ssl_require=True)
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': 'KePVBOId4o1c9kK2wJA2',
+        'HOST': 'containers-us-west-83.railway.app',
+        'PORT': '6507',
+    }
 }
 
 AUTH_USER_MODEL = 'users.Users'
