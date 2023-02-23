@@ -5,7 +5,6 @@ from rest_framework import authentication, exceptions
 from django.contrib.auth import get_user_model
 from django.conf import settings
 import jwt
-from jwt import exceptions
 
 class Users(AbstractUser):
     

@@ -2,7 +2,6 @@ import stripe
 from rest_framework import status
 from rest_framework import decorators
 from rest_framework.response import Response
-from helpers.permissions import BlockAnonymousUser
 from users.models import TokenAuthentication
 from payments import models, serializers
 from rest_framework.permissions import IsAuthenticated
