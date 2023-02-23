@@ -7,13 +7,13 @@ import django_filters
 
 class ProdusFilter(django_filters.FilterSet):
     
-    nume = django_filters.ChoiceFilter(choices=models.Produs.objects.order_by('nume').values_list('nume', 'nume').distinct())
+    name = django_filters.ChoiceFilter(choices=models.Produs.objects.order_by('name').values_list('name', 'name').distinct())
     manufacturer = django_filters.ChoiceFilter(choices=models.Produs.objects.order_by('manufacturer').values_list('manufacturer', 'manufacturer').distinct())
     price = django_filters.RangeFilter()
     class Meta:
         model = models.Produs
 
-        fields = ['nume', 'manufacturer', 'price']
+        fields = ['name', 'manufacturer', 'price']
 
 class SearchView(APIView):
     serializer_classes = {
@@ -114,13 +114,3 @@ class SubCategoriesTypeListDetaliedView(generics.RetrieveUpdateDestroyAPIView):
     
     queryset = models.SubCategoriesType.objects.all()
     serializer_class = serializers.SubCategoriesTypeSerializer
-    
-<<<<<<< HEAD
- 
-=======
- 
-
-
-#cum se face deploymen la o aplicatie
-# inginx
->>>>>>> refs/remotes/origin/main

@@ -31,7 +31,7 @@ class Produs(models.Model):
         (MDL, 'MDL'),
     ]
     
-    nume = models.CharField(max_length=100)
+    name = models.CharField(max_length=100)
     manufacturer = models.CharField(max_length=255)
     price = models.PositiveSmallIntegerField()
     product_description = models.JSONField(null=True)
