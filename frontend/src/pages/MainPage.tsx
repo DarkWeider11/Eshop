@@ -30,7 +30,7 @@ const contentStyle: React.CSSProperties = {
 };
 
 export function MainPage() {
-  const { data: products, error, isLoading } = useGetProductsQuery();
+  const { data: products, error, isLoading } = useGetProductsQuery({});
   return (
     <Layout>
       <Box display="flex" flexDirection="column" maxWidth="100%">
