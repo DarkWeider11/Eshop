@@ -1,6 +1,6 @@
 from datetime import timedelta
 import os
-# import dj_database_url
+
 
 """
 Django settings for src project.
@@ -19,6 +19,7 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+DATABASE_URL = "postgresql://postgres:KePVBOId4o1c9kK2wJA2@containers-us-west-83.railway.app:6507/railway"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -54,8 +55,6 @@ INSTALLED_APPS = [
     'django_filters',
     'dashboard.apps.DashboardConfig',
     'payments.apps.PaymentsConfig',
-    
-
 ]
 
 MIDDLEWARE = [
