@@ -170,5 +170,3 @@ class SubCategoriesTypeListDetaliedView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = serializers.SubCategoriesTypeSerializer
     
  
-
-#digital options how to deploymen tdjango aplications

@@ -1,18 +1,21 @@
-from rest_framework import generics
+from rest_framework import generics, response
 from users import models, serializers
 from helpers import permissions as helper_permissions
 
 
 class AdminUserListView(generics.ListCreateAPIView):
     
-    
     serializer_class = serializers.UserSerializer
-    # permission_classes = 
+    queryset = models.Users.objects.all()
+    queryset = models.UserToken.objects.all()
+    permission_classes = [helper_permissions.IsSuperAdmin]
     authentication_classes = [models.TokenAuthentication]
+
     def get_queryset(self):
-        
-        users_count = models.Users
-        return super().get_queryset()
+        breakpoint()
+        users_count = models.Users.objects.all().count()
+        is_superuser = models.Users.objects.filter(is_superuser=True).count()
+        is_online = models.UserToken.objects.filter(logout_time=None).count()
 
 
 class AdminUserDetaliedView(generics.RetrieveUpdateDestroyAPIView):
