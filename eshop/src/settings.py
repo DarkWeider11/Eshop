@@ -24,13 +24,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-6otb-(jot$aip%#xfose!o4+=x^ds28!twb=n78f%f3$zu@ira'
+SECRET_KEY = 'sk_test_51MbhChCKptFyMftQ8kCnyTBkqki6A9eOEXLaSjVgtRLn89VByvMXtZTeutK2r9A7zEvQcRNxADDMlRghcYtLMtDi00ZKd8aDPo'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+ALLOWED_HOSTS = ['*']
 # Application definition
 
 
@@ -108,6 +110,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'src.wsgi.application'
 
+CORS_ORIGIN_ALLOW_ALL = True
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
@@ -234,4 +237,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-6otb-(jot$aip%#xfose!o4+=x^ds28!twb=n78f%f3$zu@ira'
-SECRET_KEY = 'sk_test_51MbhChCKptFyMftQ0GAKX02lfa2gg1JGgrovqnyAbPnVfNFjr3xtzM0bqgN3GgBt3NFcUORvMHOUZwIHur9uWRZ700GvKwETlh'
+SECRET_KEY = 'sk_test_51MbhChCKptFyMftQ8kCnyTBkqki6A9eOEXLaSjVgtRLn89VByvMXtZTeutK2r9A7zEvQcRNxADDMlRghcYtLMtDi00ZKd8aDPo'
