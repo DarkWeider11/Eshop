@@ -115,12 +115,4 @@ class SubCategoriesTypeListDetaliedView(generics.RetrieveUpdateDestroyAPIView):
     queryset = models.SubCategoriesType.objects.all()
     serializer_class = serializers.SubCategoriesTypeSerializer
     
-<<<<<<< HEAD
  
-=======
- 
-
-#digital options how to deploymen tdjango aplications
-#cum se face deploymen la o aplicatie
-# inginx
->>>>>>> refs/remotes/origin/main
