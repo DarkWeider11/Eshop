@@ -1,4 +1,7 @@
-{
+{ 
+   "env": {
+    "DATABASE_URL": "postgresql://postgres:KePVBOId4o1c9kK2wJA2@containers-us-west-83.railway.app:6507/railway"
+  },
   "builds": [{
       "src": "src/wsgi.py",
       "use": "@vercel/python",
