@@ -1,4 +1,7 @@
-#!/bin/bash
+
+# Install Django
+echo "Installing Django..."
+python3.9 -m pip install Django
 
 # Build the project
 echo "Building the project..."
