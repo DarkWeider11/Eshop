@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'django_filters',
     'dashboard.apps.DashboardConfig',
+    'payments.apps.PaymentsConfig',
     
 
 ]
@@ -231,6 +232,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-#pip install gunicorn
-#pip freeze
-#pip push
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = 'django-insecure-6otb-(jot$aip%#xfose!o4+=x^ds28!twb=n78f%f3$zu@ira'
+SECRET_KEY = 'sk_test_51MbhChCKptFyMftQ0GAKX02lfa2gg1JGgrovqnyAbPnVfNFjr3xtzM0bqgN3GgBt3NFcUORvMHOUZwIHur9uWRZ700GvKwETlh'
