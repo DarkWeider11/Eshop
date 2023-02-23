@@ -16,6 +16,7 @@ export interface IBoxInterface {
   borderRadius?: number | string;
   margin?: number | string;
   borderColor?: string;
+  maxWidth?: string | number;
 }
 
 export const StyledBox = styled.div(

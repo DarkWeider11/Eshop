@@ -7,13 +7,13 @@ import {
   InstagramOutlined,
   LaptopOutlined,
 } from "@ant-design/icons";
-import Layout from "antd/es/layout/layout";
+import Layout, { Content, Footer } from "antd/es/layout/layout";
 import React from "react";
 import { Bar } from "../components/Bar/Bar";
 import { Box } from "../components/Box/Box";
 import { OnButton } from "../components/Buttons/Button";
 import { Carousel } from "../components/Carousel/Carousel";
-import { Footer } from "../components/Footer/Footer";
+// import { Footer } from "../components/Footer/Footer";
 import { Header } from "../components/Header/Header";
 import { Image } from "../components/Image/Image";
 import { Sitemap } from "../components/Sitemap/Sitemap";
@@ -33,26 +33,27 @@ export function MainPage() {
   const { data: products, error, isLoading } = useGetProductsQuery();
   return (
     <Layout>
-      <Box display="flex" flexDirection="column">
+      <Box display="flex" flexDirection="column" maxWidth="100%">
         <Box>
           <Header />
         </Box>
-        <Box display="flex" alignSelf="center">
+        <Box display="flex" alignSelf="center" maxWidth="100%">
           <Bar />
         </Box>
         <Box>
           <Carousel
             autoplay={true}
-            height={400}
-            width={1550}
+            height={500}
+            // width={1500}
             textAlign="center"
             background="#364d79"
-            margin={60}
+            margin={115}
             borderRadius={6}
             borderColor="#d9d9d9"
             display="flex"
             borderStyle="solid"
             alignSelf="center"
+            justifyContent="center"
             maxWidth="100%"
           >
             <div>
@@ -60,8 +61,8 @@ export function MainPage() {
                 <Image
                   preview={false}
                   src="./src/assets/images/asus.webp"
-                  height={450}
-                  width={1540}
+                  height={550}
+                  max-width="100%"
                 ></Image>
               </a>
             </div>
@@ -70,8 +71,8 @@ export function MainPage() {
                 <Image
                   preview={false}
                   src="./src/assets/images/watch.webp"
-                  height={450}
-                  width={1540}
+                  height={550}
+                  max-width="100%"
                 ></Image>
               </a>
             </div>
@@ -80,8 +81,8 @@ export function MainPage() {
                 <Image
                   preview={false}
                   src="./src/assets/images/samsung.webp"
-                  height={450}
-                  width={1540}
+                  height={550}
+                  max-width="100%"
                 ></Image>
               </a>
             </div>
@@ -90,7 +91,7 @@ export function MainPage() {
                 <Image
                   preview={false}
                   src="./src/assets/images/macbook.webp"
-                  height={450}
+                  height={550}
                   width={1540}
                 ></Image>
               </a>
@@ -135,24 +136,28 @@ export function MainPage() {
 
         <Box>
           <Carousel
-            height={400}
-            width={1550}
+            height={500}
+            // width={1500}
             textAlign="center"
             background="#364d79"
-            margin={60}
+            margin={115}
             borderRadius={6}
             borderColor="#d9d9d9"
             display="flex"
             borderStyle="solid"
             alignSelf="center"
+            justifyContent="center"
+            maxWidth="100%"
           >
             <div>
               <a href="https://darwin.md/realme-8-black-6-128-gb-dual.html">
                 <Image
                   preview={false}
                   src="./src/assets/images/s23.webp"
-                  height={450}
-                  width={1540}
+                  // height={450}
+                  // width={1540}
+                  height={550}
+                  max-width="100%"
                 ></Image>
               </a>
             </div>
@@ -161,8 +166,8 @@ export function MainPage() {
                 <Image
                   preview={false}
                   src="./src/assets/images/ipad.webp"
-                  height={450}
-                  width={1540}
+                  height={550}
+                  max-width="100%"
                 ></Image>
               </a>
             </div>
@@ -171,8 +176,8 @@ export function MainPage() {
                 <Image
                   preview={false}
                   src="./src/assets/images/pod.webp"
-                  height={450}
-                  width={1540}
+                  height={550}
+                  max-width="100%"
                 ></Image>
               </a>
             </div>
@@ -181,7 +186,7 @@ export function MainPage() {
                 <Image
                   preview={false}
                   src="./src/assets/images/air.webp"
-                  height={450}
+                  height={550}
                   width={1540}
                 ></Image>
               </a>
@@ -226,48 +231,6 @@ export function MainPage() {
         </Box>
 
         {/* <Box
-        display="flex"
-        gap={10}
-        padding={32}
-        alignSelf="center"
-        borderStyle="solid"
-        borderColor="#d9d9d9"
-        borderRadius={6}
-        margin={32}
-      >
-        <div>
-          <a href="https://darwin.md/realme-8-black-6-128-gb-dual.html">
-            <Image
-              preview={false}
-              src="./src/assets/images/rs6.jpg"
-              width={380}
-              height={380}
-            ></Image>
-          </a>
-        </div>
-        <div>
-          <a href="https://darwin.md/realme-8-black-6-128-gb-dual.html">
-            <Image
-              preview={false}
-              src="./src/assets/images/rs6.jpg"
-              width={380}
-              height={380}
-            ></Image>
-          </a>
-        </div>
-        <div>
-          <a href="https://darwin.md/realme-8-black-6-128-gb-dual.html">
-            <Image
-              preview={false}
-              src="./src/assets/images/rs6.jpg"
-              width={380}
-              height={380}
-            ></Image>
-          </a>
-        </div>
-      </Box> */}
-
-        <Box
           display="flex"
           gap={5}
           borderStyle="solid"
@@ -278,8 +241,9 @@ export function MainPage() {
         >
           <Footer></Footer>
           <Sitemap></Sitemap>
-        </Box>
+        </Box> */}
       </Box>
+      <Footer style={{ textAlign: "center" }}>Eshop</Footer>
     </Layout>
   );
 }

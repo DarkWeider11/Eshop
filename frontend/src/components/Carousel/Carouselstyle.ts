@@ -17,6 +17,8 @@ export interface ICarouselInterface {
   width?: string | number;
   alignSelf?: "center" | "start" | "end";
   maxWidth?: string | number;
+  maxHeight?: string | number;
+  justifyContent?: "right" | "left" | "space-between" | "center";
 }
 
 export const StyledCarousel = styled(Carousel)(
