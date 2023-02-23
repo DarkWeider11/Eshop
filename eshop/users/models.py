@@ -5,7 +5,6 @@ from rest_framework import authentication, exceptions
 from django.contrib.auth import get_user_model
 from django.conf import settings
 import jwt
-from jwt import ExpiredSignatureError
 
 class Users(AbstractUser):
     
@@ -72,7 +71,7 @@ class TokenAuthentication(authentication.BaseAuthentication):
         try: 
             payload = jwt.decode(auth[1], settings.SECRET_KEY, 
                                  algorithms=['HS256']) 
-        except ExpiredSignatureError: 
+        except jwt.ExpiredSignatureError: 
             # On front-end should redirect to refresh token 
             # And get a new access token 
             # See refresh_token func in authen views 

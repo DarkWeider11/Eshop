@@ -198,3 +198,6 @@ media/
 report.xml
 node_modules/
 .DS_Store
+.vercel
+
+.idea

@@ -1,5 +1,7 @@
 from datetime import timedelta
+from pathlib import Path
 import os
+
 
 """
 Django settings for src project.
@@ -13,24 +15,27 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
-from pathlib import Path
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+DATABASE_URL = "postgresql://postgres:KePVBOId4o1c9kK2wJA2@containers-us-west-83.railway.app:6507/railway"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-6otb-(jot$aip%#xfose!o4+=x^ds28!twb=n78f%f3$zu@ira'
+SECRET_KEY = 'sk_test_51MbhChCKptFyMftQ8kCnyTBkqki6A9eOEXLaSjVgtRLn89VByvMXtZTeutK2r9A7zEvQcRNxADDMlRghcYtLMtDi00ZKd8aDPo'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [".vercel.app"]
 
-
+ALLOWED_HOSTS = ['*']
 # Application definition
 
 
@@ -52,8 +57,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'django_filters',
     'dashboard.apps.DashboardConfig',
-    
-
+    'payments.apps.PaymentsConfig',
 ]
 
 MIDDLEWARE = [
@@ -107,14 +111,19 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'src.wsgi.application'
 
+CORS_ORIGIN_ALLOW_ALL = True
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': 'KePVBOId4o1c9kK2wJA2',
+        'HOST': 'containers-us-west-83.railway.app',
+        'PORT': '6507',
     }
 }
 
@@ -153,7 +162,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -223,6 +232,11 @@ CORS_ALLOWED_ORIGINS += [
 
 STATIC_URL = '/static/'
 MEDIA_ROOT = '/media/'
+STATIC_ROOT = BASE_DIR / "staticfiles_build" / "static"
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = 'django-insecure-6otb-(jot$aip%#xfose!o4+=x^ds28!twb=n78f%f3$zu@ira'
+SECRET_KEY = 'sk_test_51MbhChCKptFyMftQ8kCnyTBkqki6A9eOEXLaSjVgtRLn89VByvMXtZTeutK2r9A7zEvQcRNxADDMlRghcYtLMtDi00ZKd8aDPo'
