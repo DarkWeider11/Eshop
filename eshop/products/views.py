@@ -7,6 +7,7 @@ import django_filters
 
 class ProdusFilter(django_filters.FilterSet):
     
+    # cautarea mai multe produse odata
     nume = django_filters.ChoiceFilter(choices=models.Produs.objects.order_by('nume').values_list('nume', 'nume').distinct())
     manufacturer = django_filters.ChoiceFilter(choices=models.Produs.objects.order_by('manufacturer').values_list('manufacturer', 'manufacturer').distinct())
     price = django_filters.RangeFilter()
@@ -118,5 +119,3 @@ class SubCategoriesTypeListDetaliedView(generics.RetrieveUpdateDestroyAPIView):
  
 
 #digital options how to deploymen tdjango aplications
-#cum se face deploymen la o aplicatie
-# inginx
