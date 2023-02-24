@@ -170,8 +170,8 @@ USE_TZ = True
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
-EMAIL_HOST_USER = '2fa861c88aa868'
-EMAIL_HOST_PASSWORD = '2a577e571ea6a7'
+EMAIL_HOST_USER = 'ec76d91a7542c4'
+EMAIL_HOST_PASSWORD = '09b54b6c58695c'
 EMAIL_PORT = '2525'
 
 SIMPLE_JWT = { 
