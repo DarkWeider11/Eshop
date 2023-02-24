@@ -110,7 +110,7 @@ export function MainPage() {
               <div className="products">
                 {products?.map((el) => (
                   <div key={el.id} className="product">
-                    <h3>{el.nume}</h3>
+                    <h3>{el.name}</h3>
                     {el.images?.length ? (
                       el.images.map(({ image, id, produs }) => {
                         if (image) {

@@ -38,16 +38,23 @@ function Products() {
     // manufacturer: InputManufacturer,
   });
 
-  const manufacturerOptions = [
-    { key: 1, label: "Apple", value: "Apple" },
-    { key: 2, label: "Samsung", value: "Samsung" },
-  ];
-
-  const numeOptions = products?.map((el) => {
+  const manufacturerOptions = products?.map((el) => {
     return {
       key: el.id,
-      label: el.nume,
-      value: el.nume,
+      label: el.manufacturer,
+      value: el.manufacturer,
+    };
+  });
+  // [
+  //   { key: 1, label: "Apple", value: "Apple" },
+  //   { key: 2, label: "Samsung", value: "Samsung" },
+  // ];
+
+  const nameOptions = products?.map((el) => {
+    return {
+      key: el.id,
+      label: el.name,
+      value: el.name,
     };
   });
 
@@ -80,10 +87,10 @@ function Products() {
         <Layout>
           <Content style={{ padding: "0 50px" }}>
             <Form style={contentStyle} layout="horizontal" form={form}>
-              <Form.Item label="nume" name="nume">
+              <Form.Item label="Name" name="name">
                 <Select
                   placeholder="Name"
-                  options={numeOptions}
+                  options={nameOptions}
                   onChange={(val) => setInputValue(val)}
                 />
               </Form.Item>
@@ -150,7 +157,7 @@ function Products() {
                     <div className="products">
                       {products?.map((el) => (
                         <div key={el.id} className="product">
-                          <h3>{el.nume}</h3>
+                          <h3>{el.name}</h3>
                           {el.images?.length ? (
                             el.images.map(({ image, id, produs }) => {
                               if (image) {

@@ -2,9 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 interface ProductsResponse {
+  name: string;
   id: number;
   images: [];
-  nume: string;
   manufacturer: string;
   price: number;
   product_description: any;
@@ -22,7 +22,7 @@ interface ImagesResponse {
 
 interface FilterProducts {
   query?: string;
-  nume?: string;
+  name?: string;
   manufacturer?: string;
   price?: number;
 }
@@ -37,7 +37,7 @@ export const productsApi = createApi({
     getProducts: builder.query<ProductsResponse[], { query?: string }>({
       query: ({ query = "" }) => {
         return {
-          url: `/get-produs?nume=${query}`,
+          url: `/get-produs?name=${query}`,
           method: "GET",
         };
       },
@@ -54,10 +54,10 @@ export const productsApi = createApi({
       providesTags: ["Products"],
     }),
     filterProducts: builder.query<ProductsResponse[], FilterProducts>({
-      query: ({ query = "", manufacturer = "" }) => {
+      query: ({ query = "", manufacturer = "", price = "" }) => {
         console.log(query);
 
-        return `/produs-filter?nume=${query}&manufacturer=${manufacturer}`;
+        return `/produs-filter?name=${query}&manufacturer=${manufacturer}&price=${price}`;
       },
       providesTags: ["Products"],
     }),
@@ -73,7 +73,7 @@ export const {
 const initialState: ProductsResponse = {
   id: 0,
   images: [],
-  nume: "",
+  name: "",
   manufacturer: "",
   price: 0,
   product_description: "",
