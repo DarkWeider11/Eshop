@@ -1,5 +1,14 @@
 import { HomeOutlined, UserOutlined } from "@ant-design/icons";
-import { Avatar, Button, Form, Select } from "antd";
+import {
+  Avatar,
+  Button,
+  Col,
+  Form,
+  InputNumber,
+  Row,
+  Select,
+  Slider,
+} from "antd";
 import Layout, { Content, Footer, Header } from "antd/es/layout/layout";
 import Sider from "antd/es/layout/Sider";
 import Menu from "antd/es/menu";
@@ -15,7 +24,11 @@ import {
 } from "../redux-toolkit/slices/productSlice";
 import "../global.css";
 import Title from "antd/es/typography/Title";
-import { Filters } from "../components/Filters/Filter";
+import { useDispatch } from "react-redux";
+// import { addToCart } from "../redux-toolkit/slices/cartSlice";
+import { store } from "../redux-toolkit/store/store";
+import { addToCart } from "../redux-toolkit/slices/cartSlice";
+
 const contentStyle: React.CSSProperties = {
   maxWidth: "100%",
   color: "white",
@@ -27,7 +40,17 @@ function Products() {
   const [inputValue, setInputValue] = useState<string>("");
   const [InputManufacturer, setInputManufacturer] = useState<string>("");
   const { data: products, error, isLoading } = useGetProductsQuery({});
-
+  const [inValue, setInValue] = useState(1);
+  // const [filteredProducts, setFilteredProducts] = useState(null);
+  const { data: filteredProducts } = useFilterProductsQuery({
+    query: inputValue,
+    manufacturer: InputManufacturer,
+    price: inValue,
+  });
+  const dispatch = useDispatch();
+  const handleAddToCart = () => {
+    dispatch(addToCart(products));
+  };
   // const { data: queryProducts } = useFilterProductsQuery({
   //   query: inputValue,
   //   manufacturer: InputManufacturer,
@@ -57,6 +80,10 @@ function Products() {
       value: el.name,
     };
   });
+
+  const onChange = (newValue: number) => {
+    setInValue(newValue);
+  };
 
   console.log(inputValue);
   // console.log(queryProducts);
@@ -109,24 +136,19 @@ function Products() {
 
               <Form.Item label="Price" name="price"></Form.Item>
 
-              {/* <Row>
-        <Col span={12}>
-          <Slider
-            min={1}
-            max={3000}
-            onChange={onChange}
-            value={typeof inputValue === "number" ? inputValue : 0}
-          />
-        </Col>
-        <Col span={4}>
-          <InputNumber
-            min={1}
-            max={20}
-            style={{ margin: "0 16px" }}
-            value={inputValue}
-          />
-        </Col>
-      </Row> */}
+              <Row>
+                <Col span={12}>
+                  <Slider
+                    min={1}
+                    max={3000}
+                    onChange={onChange}
+                    value={typeof inValue === "number" ? inValue : 0}
+                  />
+                </Col>
+                <Col span={4}>
+                  <InputNumber style={{ margin: "0 16px" }} value={inValue} />
+                </Col>
+              </Row>
               {/* <Row>
         <Form.Item label="from" name="from" labelCol={{ span: 7 }}>
           <InputNumber />
@@ -146,6 +168,42 @@ function Products() {
               </Form.Item>
             </Form>
             <div style={{ background: "white", padding: 20, minHeight: 800 }}>
+              <div className="products-container">
+                {filteredProducts ? (
+                  <>
+                    <h2>Filtered Products</h2>
+                    <div className="products">
+                      {filteredProducts.map((el) => (
+                        <div key={el.id} className="product">
+                          <h3>{el.name}</h3>
+                          {el.images?.length ? (
+                            el.images.map(({ image, id, produs }) => {
+                              if (image) {
+                                return (
+                                  <img key={id} src={image} alt={produs} />
+                                );
+                              } else {
+                                return null;
+                              }
+                            })
+                          ) : (
+                            <p>No Image</p>
+                          )}
+                          <div className="details">
+                            <span>{el.product_description}</span>
+                            <span className="price">${el.price}</span>
+                          </div>
+
+                          <OnButton onClick={handleAddToCart}>
+                            Add to cart
+                          </OnButton>
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                ) : null}
+              </div>
+
               <div className="products-container">
                 {isLoading ? (
                   <p>Loading...</p>
@@ -175,7 +233,9 @@ function Products() {
                             <span>{el.product_description}</span>
                             <span className="price">${el.price}</span>
                           </div>
-                          <OnButton>Add to cart</OnButton>
+                          <OnButton onClick={handleAddToCart}>
+                            Add to cart
+                          </OnButton>
                         </div>
                       ))}
                     </div>

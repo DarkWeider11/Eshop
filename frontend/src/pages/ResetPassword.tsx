@@ -1,6 +1,8 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Form, Input } from "antd";
 import { Link, useNavigate } from "react-router-dom";
+import { useResetPasswordMutation } from "../redux-toolkit/slices/usersSlice";
+import axios from "axios";
 
 const contentStyle: React.CSSProperties = {
   maxWidth: "300px",
@@ -14,8 +16,38 @@ const contentStyle: React.CSSProperties = {
 const ResetPassword = () => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
-  const onSubmit = () => {
-    navigate("/login");
+
+  const [resetPassword] = useResetPasswordMutation();
+
+  const onSubmit = async () => {
+    try {
+      const values = await form.validateFields();
+      const email = values.email;
+      await resetPassword({ email });
+      setEmail(email);
+
+      // Send reset password email using Mailtrap.io
+      const response = await axios.post(
+        "sandbox.smtp.mailtrap.io",
+        {
+          recipient: email,
+          subject: "Reset Password",
+          html_body:
+            "<p>Please click on the following link to reset your password:</p><a href='https://example.com/reset-password'>Reset Password</a>",
+        },
+        {
+          auth: {
+            username: "Orange OSY", // Replace with your Mailtrap username
+            password: "orangeOSY2023", // Replace with your Mailtrap password
+          },
+        }
+      );
+
+      console.log(response);
+      navigate("/login");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -48,3 +80,6 @@ const ResetPassword = () => {
   );
 };
 export { ResetPassword };
+function setEmail(email: any) {
+  throw new Error("Function not implemented.");
+}

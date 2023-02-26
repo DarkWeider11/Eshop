@@ -25,10 +25,47 @@ const Login = () => {
   const navigate = useNavigate();
 
   const [loginUsers, { data: loginUserData }] = useLoginUsersMutation();
-  const onSubmit = () => {
-    loginUsers(form.getFieldsValue(true));
-    navigate("/");
+  const onSubmit = async () => {
+    try {
+      const values = await form.validateFields();
+      const { email, password } = values;
+
+      const result = await loginUsers({
+        email,
+        password,
+        user_id: 0,
+        username: "",
+        access_token: "",
+        success: undefined,
+      }).unwrap();
+
+      console.log(result);
+      console.log(loginUserData);
+
+      if (result && result.success === true) {
+        notification.error({
+          message: "Login failed",
+          description: "The entered email and password are incorrect.",
+        });
+        // navigate("/");
+      } else {
+        // notification.error({
+        //   message: "Login failed",
+        //   description: "The entered email and password are incorrect.",
+        notification.success({
+          message: "Login successfuly",
+          description: "The entered email and password are correct.",
+        });
+        navigate("/");
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
+  // const onSubmit = () => {
+  //   loginUsers(form.getFieldsValue(true));
+  //   navigate("/");
+  // };
 
   return (
     <div>

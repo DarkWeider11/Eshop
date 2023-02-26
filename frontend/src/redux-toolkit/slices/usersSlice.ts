@@ -4,9 +4,12 @@ import type { RootState } from "../store/store";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 interface LoginResponse {
+  success: any;
   user_id: number;
   username: string;
   access_token: string;
+  email: string;
+  password: string;
 }
 
 interface RegUser {
@@ -61,11 +64,11 @@ export const usersApi = createApi({
       invalidatesTags: ["Users"],
     }),
     resetPassword: builder.mutation<ResetPassword, ResetPassword>({
-      query: (user) => {
+      query: ({ email }) => {
         return {
           url: "/reset",
           method: "POST",
-          body: user,
+          body: { email },
         };
       },
       invalidatesTags: ["Users"],
@@ -91,6 +94,9 @@ const initialState: LoginResponse = {
   user_id: 0,
   username: "",
   access_token: "",
+  password: "",
+  email: "",
+  success: "",
 };
 
 const initialRegState: RegUser = {
@@ -164,7 +170,7 @@ export const resetPasswordSlice = createSlice({
 });
 
 export const { logout } = loginSlice.actions;
-// export const { resetReducer } = resetPasswordSlice.actions;
+export const resetReducer = resetPasswordSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
 // export const selectCount = (state: RootState) => state.counter.value;

@@ -1,9 +1,10 @@
 import { imagesReducer, productsApi } from "./../slices/productSlice";
-import { logout, registerReducer } from "./../slices/usersSlice";
+import { logout, registerReducer, resetReducer } from "./../slices/usersSlice";
 // import { counterReducer } from "../slices/countslice";
 import { configureStore } from "@reduxjs/toolkit";
 import { loginReducer, usersApi } from "../slices/usersSlice";
 import { productsReducer } from "../slices/productSlice";
+import { cartReducer } from "../slices/cartSlice";
 
 // ...
 
@@ -13,6 +14,7 @@ export const store = configureStore({
     [productsApi.reducerPath]: productsApi.reducer,
     login: loginReducer,
     register: registerReducer,
+    cart: cartReducer,
     products: productsReducer,
     images: imagesReducer,
   },
