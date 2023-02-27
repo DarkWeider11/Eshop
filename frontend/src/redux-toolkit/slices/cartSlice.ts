@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query";
 
 interface CartState {
   status: "idle" | "loading" | "succeeded" | "failed";
@@ -33,6 +34,27 @@ const initialState: CartState = {
   error: null,
   cartItems: null,
 };
+
+export const cartApi = createApi({
+  reducerPath: "cartApi",
+  baseQuery: fetchBaseQuery({
+    baseUrl: `${import.meta.env.VITE_BASE_URL}/`,
+  }),
+  tagTypes: ["Cart"],
+  endpoints: (builder) => ({
+    cart: builder.mutation<CartResponse, CartResponse>({
+      query: (cart) => {
+        console.log(cart);
+        return {
+          url: "cart/",
+          method: "POST",
+          body: cart,
+        };
+      },
+      invalidatesTags: ["Cart"],
+    }),
+  }),
+});
 
 export const createCart = createAsyncThunk(
   "cart/create",

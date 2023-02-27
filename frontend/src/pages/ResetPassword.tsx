@@ -28,16 +28,14 @@ const ResetPassword = () => {
 
       // Send reset password email using Mailtrap.io
       const response = await axios.post(
-        "sandbox.smtp.mailtrap.io",
+        "https://mailtrap.io/inboxes/2112916/messages",
         {
           recipient: email,
           subject: "Reset Password",
-          html_body:
-            "<p>Please click on the following link to reset your password:</p><a href='https://example.com/reset-password'>Reset Password</a>",
         },
         {
           auth: {
-            username: "Orange OSY", // Replace with your Mailtrap username
+            username: "OrangeOSY", // Replace with your Mailtrap username
             password: "orangeOSY2023", // Replace with your Mailtrap password
           },
         }

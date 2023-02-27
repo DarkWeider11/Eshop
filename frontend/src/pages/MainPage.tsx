@@ -106,9 +106,9 @@ export function MainPage() {
             <p>error occurred..</p>
           ) : (
             <>
-              <h2>Products</h2>
+              <h2>New Arrivals</h2>
               <div className="products">
-                {products?.map((el) => (
+                {products?.slice(0, 4).map((el) => (
                   <div key={el.id} className="product">
                     <h3>{el.name}</h3>
                     {el.images?.length ? (

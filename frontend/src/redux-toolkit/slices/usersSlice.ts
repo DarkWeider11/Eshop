@@ -10,6 +10,7 @@ interface LoginResponse {
   access_token: string;
   email: string;
   password: string;
+  loginStatus: boolean;
 }
 
 interface RegUser {
@@ -97,6 +98,7 @@ const initialState: LoginResponse = {
   password: "",
   email: "",
   success: "",
+  loginStatus: false,
 };
 
 const initialRegState: RegUser = {
@@ -116,6 +118,10 @@ export const loginSlice = createSlice({
     logout: (state) => {
       state.access_token = "";
       sessionStorage.removeItem("token");
+      state.loginStatus = false;
+    },
+    setLoginStatus: (state, action: PayloadAction<boolean>) => {
+      state.loginStatus = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -126,6 +132,7 @@ export const loginSlice = createSlice({
         if (payload.access_token) {
           state.access_token = payload.access_token;
           sessionStorage.setItem("token", payload.access_token);
+          state.loginStatus = true;
         }
       }
     );
@@ -164,12 +171,13 @@ export const resetPasswordSlice = createSlice({
       usersApi.endpoints.resetPassword.matchFulfilled,
       (state, { payload }) => {
         console.log(payload);
+        state.email = payload.email;
       }
     );
   },
 });
 
-export const { logout } = loginSlice.actions;
+export const { logout, setLoginStatus } = loginSlice.actions;
 export const resetReducer = resetPasswordSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type

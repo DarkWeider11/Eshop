@@ -4,16 +4,19 @@ import {
   LogoutOutlined,
   UserAddOutlined,
 } from "@ant-design/icons";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useAppDispatch } from "../../hooks/hooks";
-import { logout } from "../../redux-toolkit/slices/usersSlice";
+import { logout, setLoginStatus } from "../../redux-toolkit/slices/usersSlice";
 import { Box } from "../Box/Box";
 import { OnButton } from "../Buttons/Button";
 
 export function LoginRegister() {
   const dispatch = useAppDispatch();
+  // const loginStatus = useSelector((state) => state.users.loginStatus);
   const handlelogout = () => {
     dispatch(logout());
+    // dispatch(setLoginStatus(false));
   };
 
   return (

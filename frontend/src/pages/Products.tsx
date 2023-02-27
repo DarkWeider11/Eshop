@@ -211,7 +211,7 @@ function Products() {
                   <p>error occurred..</p>
                 ) : (
                   <>
-                    <h2>Products</h2>
+                    {/* <h2>Products</h2>
                     <div className="products">
                       {products?.map((el) => (
                         <div key={el.id} className="product">
@@ -238,7 +238,7 @@ function Products() {
                           </OnButton>
                         </div>
                       ))}
-                    </div>
+                    </div> */}
                   </>
                 )}
               </div>
