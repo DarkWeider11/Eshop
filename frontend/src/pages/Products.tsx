@@ -61,17 +61,13 @@ function Products() {
     // manufacturer: InputManufacturer,
   });
 
-  const manufacturerOptions = products?.map((el) => {
-    return {
-      key: el.id,
-      label: el.manufacturer,
-      value: el.manufacturer,
-    };
-  });
-  // [
-  //   { key: 1, label: "Apple", value: "Apple" },
-  //   { key: 2, label: "Samsung", value: "Samsung" },
-  // ];
+  const manufacturerOptions = products?.filter((product, index, self) =>
+    index === self.findIndex((p) => p.manufacturer === product.manufacturer)
+  ).map((product) => ({
+    key: product.id,
+    label: product.manufacturer,
+    value: product.manufacturer,
+  }));
 
   const nameOptions = products?.map((el) => {
     return {
