@@ -21,7 +21,10 @@ def login_view(request):
     serializer = serializers.LoginSerializer(data=request.data)
     serializer.is_valid(raise_exception=True)
     try:
-        user = models.Users.objects.get(email=request.data['email'])
+        try:
+            user = models.Users.objects.get(username=request.data['username'])
+        except models.Users.DoesNotExist:
+            user = models.Users.objects.get(email=request.data['username'])
     except models.Users.DoesNotExist:
         msg = {'User does not exist'}
         return response.Response(msg, status=status.HTTP_404_NOT_FOUND)
@@ -79,14 +82,16 @@ def logout_view(request):
 
 @decorators.api_view(['POST'])
 def resetpassword_view(request):
-    email = request.data['email']
     try:
-        user = models.Users.objects.get(email=email)
-    except models.Users.DoesNotExist:
+        try:
+            user = models.Users.objects.get(email=request.data['username'])
+        except models.Users.DoesNotExist:
+            user = models.Users.objects.get(username=request.data['username'])
+    except:
         msg = {'User does not exist'}
         return response.Response(msg, status=status.HTTP_404_NOT_FOUND)
 
-    if models.Users.objects.filter(email=email).exists():
+    if models.Users.objects.filter(username=request.data['username']).exists():
         characters = string.ascii_letters + string.digits + string.punctuation
         password = ''.join(random.choice(characters) for i in range(8))
         user.set_password(password)
@@ -95,7 +100,7 @@ def resetpassword_view(request):
           'reset_password',
           f'You can find your password here:  {password}',
           'admin@admin.com',
-          [email],
+          [request.data['username']],
         )
         msg = {'Password reset email sent successfully'}
         return response.Response(msg, status=status.HTTP_200_OK)
