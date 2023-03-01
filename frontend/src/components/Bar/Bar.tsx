@@ -13,7 +13,7 @@ import {
 } from "@ant-design/icons";
 import { Affix, Menu } from "antd";
 import { ReactNode } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Box } from "../Box/Box";
 import { OnButton } from "../Buttons/Button";
 import { Search } from "../Search/Search";
@@ -39,7 +39,7 @@ export function Bar({}) {
           </Box>
           <Box>
             <OnButton>
-              <ShoppingCartOutlined />
+              <ShoppingCartOutlined key={"/cart"} />
             </OnButton>
           </Box>
         </Box>

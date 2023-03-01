@@ -97,15 +97,47 @@ export const cartSlice = createSlice({
       const { id } = action.payload;
       const index = state.cartItems.findIndex((item) => item.id === id);
       if (index !== -1) {
+        const newCartItems = [
+          ...state.cartItems.slice(0, index),
+          ...state.cartItems.slice(index + 1),
+        ];
+        localStorage.setItem("cartItems", JSON.stringify(newCartItems));
         return {
           ...state,
-          cartItems: [
-            ...state.cartItems.slice(0, index),
-            ...state.cartItems.slice(index + 1),
-          ],
+          cartItems: newCartItems,
         };
       }
       return state;
+    },
+
+    getTotals(state, action) {
+      let { total, quantity } = state.cartItems.reduce(
+        (cartTotal, cartItem) => {
+          const { price, cartQuantity } = cartItem;
+          const itemTotal = price * cartQuantity;
+
+          cartTotal.total += itemTotal;
+          cartTotal.quantity += cartQuantity;
+
+          return cartTotal;
+        },
+        {
+          total: 0,
+          quantity: 0,
+        }
+      );
+      total = parseFloat(total.toFixed(2));
+      state.cartQuantity = quantity;
+      state.cartTotalAmount = total;
+    },
+    incrementQuantity(state, action) {
+      const { id } = action.payload;
+      const index = state.cartItems.findIndex((item) => item.id === id);
+      if (index !== -1) {
+        state.cartItems[index].cartQuantity += 1;
+        state.cartTotalAmount += state.cartItems[index].price;
+        state.cartQuantity += 1;
+      }
     },
   },
   extraReducers: (builder) => {
@@ -124,5 +156,5 @@ export const cartSlice = createSlice({
   },
 });
 
-export const { addToCart, removeFromCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, getTotals } = cartSlice.actions;
 export const cartReducer = cartSlice.reducer;

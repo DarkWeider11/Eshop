@@ -20,7 +20,6 @@ import Menu from "antd/es/menu";
 import { ReactNode, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-
 import { OnButton } from "../components/Buttons/Button";
 import {
   productsApi,
@@ -68,25 +67,25 @@ function Products() {
     });
   };
 
-  const [trigger, { }] = useLazyFilterProductsQuery({
-  });
+  const [trigger, {}] = useLazyFilterProductsQuery({});
 
   const manufacturerOptions = [
-    { key: 'all-manufacturers', label: '-------', value: '' },
-    ...(products?.filter((product, index, self) =>
-      index === self.findIndex((p) => p.manufacturer === product.manufacturer)
-    ).map((product) => ({
-      key: product.id,
-      label: product.manufacturer,
-      value: product.manufacturer,
-    })) || []),
+    { key: "all-manufacturers", label: "-------", value: "" },
+    ...(products
+      ?.filter(
+        (product, index, self) =>
+          index ===
+          self.findIndex((p) => p.manufacturer === product.manufacturer)
+      )
+      .map((product) => ({
+        key: product.id,
+        label: product.manufacturer,
+        value: product.manufacturer,
+      })) || []),
   ];
 
-
-
-
   const nameOptions = [
-    { key: 'all-products', label: '-------', value: '' },
+    { key: "all-products", label: "-------", value: "" },
     ...(products?.map((el) => ({
       key: el.id,
       label: el.name,
@@ -98,31 +97,30 @@ function Products() {
   //   setInputPrice(value ?? 0);
   // };
 
-
   const handlePriceMinChange = (value: number) => {
     if (typeof value === "number") {
       setInputPriceMin(value);
       if (filteredProducts) {
-        const filtered = filteredProducts.filter((product) => product.price >= value);
+        const filtered = filteredProducts.filter(
+          (product) => product.price >= value
+        );
         // Utilizați rezultatul filtrării după preț în funcții sau componente ulterioare
       }
     }
-
   };
 
   const handlePriceMaxChange = (value: number) => {
     if (typeof value === "number") {
       setInputPriceMax(value);
       if (filteredProducts) {
-        const filtered = filteredProducts.filter((product) => product.price <= value);
+        const filtered = filteredProducts.filter(
+          (product) => product.price <= value
+        );
 
         // Utilizați rezultatul filtrării după preț în funcții sau componente ulterioare
       }
     }
-
   };
-
-
 
   console.log(inputValue);
   // console.log(queryProducts);
@@ -151,7 +149,7 @@ function Products() {
               { label: "Cart", key: "/cart", icon: <AppstoreAddOutlined /> },
             ]}
           ></Menu>
-          <div style={{ height: '24px' }}></div>
+          <div style={{ height: "24px" }}></div>
           <Form
             layout="vertical"
             form={form}
@@ -180,7 +178,11 @@ function Products() {
               </Form.Item>
 
               {/* Select Manufacturer */}
-              <Form.Item label="Manufacturer" name="manufacturer" style={{ marginBottom: "1px" }}>
+              <Form.Item
+                label="Manufacturer"
+                name="manufacturer"
+                style={{ marginBottom: "1px" }}
+              >
                 <Select
                   placeholder="Manufacturer"
                   options={manufacturerOptions}
@@ -188,26 +190,24 @@ function Products() {
                   mode="multiple" // add this line to enable multiple selections
                 />
               </Form.Item>
-
             </div>
 
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column" }}>
-              <h2 style={{ marginBottom: "16px", fontSize: "15px" }}> Price </h2>
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "16px" }}>
-                <InputNumber
-                  placeholder="Preț minim"
-                  value={inputPriceMin}
-                  onChange={(val: number | undefined) => handlePriceMinChange(val)}
-                  style={{ width: "45%" }}
-                />
-                <span style={{ fontSize: "20px", fontWeight: "bold" }}>-</span>
-                <InputNumber
-                  placeholder="Preț maxim"
-                  value={inputPriceMax}
-                  onChange={(val: number | undefined) => handlePriceMaxChange(val)}
-                  style={{ width: "45%" }}
-                />
-              </div>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexDirection: "column",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  marginBottom: "16px",
+                }}
+              ></div>
               <Button
                 type="primary"
                 htmlType="submit"
@@ -222,14 +222,17 @@ function Products() {
                   boxShadow: "0 2px 8px rgba(0, 0, 0, 0.15)",
                   transition: "all 0.3s ease",
                 }}
-                onMouseEnter={(e: any) => (e.target.style.backgroundColor = "#40a9ff")}
-                onMouseLeave={(e: any) => (e.target.style.backgroundColor = "#1890ff")}
+                onMouseEnter={(e: any) =>
+                  (e.target.style.backgroundColor = "#40a9ff")
+                }
+                onMouseLeave={(e: any) =>
+                  (e.target.style.backgroundColor = "#1890ff")
+                }
               >
                 Submit
               </Button>
             </div>
           </Form>
-
         </Sider>
 
         <Layout>
@@ -277,8 +280,7 @@ function Products() {
                 ) : error ? (
                   <p>error occurred..</p>
                 ) : (
-                  <>
-                  </>
+                  <></>
                 )}
               </div>
             </div>
