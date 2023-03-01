@@ -7,6 +7,7 @@ interface ButtonProps extends IButtonInterface {
   href?: string;
   position?: "relative";
   onClick?: () => void;
+  type?: any;
 }
 
 export const OnButton = ({
@@ -14,10 +15,17 @@ export const OnButton = ({
   shape,
   href,
   onClick,
+  type,
   ...rest
 }: ButtonProps) => {
   return (
-    <StyledButton styles={rest} shape={shape} href={href} onClick={onClick}>
+    <StyledButton
+      styles={rest}
+      type={type}
+      shape={shape}
+      href={href}
+      onClick={onClick}
+    >
       {children}
     </StyledButton>
   );

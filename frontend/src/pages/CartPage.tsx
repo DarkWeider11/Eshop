@@ -113,6 +113,7 @@ function Cart() {
                             <div>
                               <h3>{cartItems.name}</h3>
                               <OnButton
+                                type="primary"
                                 onClick={() =>
                                   handleRemoveFromCart(cartItems.id)
                                 }
