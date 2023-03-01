@@ -22,14 +22,14 @@ const ResetPassword = () => {
   const onSubmit = async () => {
     try {
       const values = await form.validateFields();
-      const email = values.email;
-      await resetPassword({ email });
+      const username = values.username;
+      await resetPassword({ username });
 
       // Send reset password email using Mailtrap.io
       const response = await axios.post(
         "sandbox.smtp.mailtrap.io",
         {
-          recipient: email,
+          recipient: username,
           subject: "Reset Password",
         },
         {
@@ -51,7 +51,7 @@ const ResetPassword = () => {
     <div>
       <Form style={contentStyle} form={form}>
         <Form.Item
-          name="email"
+          name="username"
           label="Email address"
           rules={[
             { required: true, message: "Please input your email address" },
