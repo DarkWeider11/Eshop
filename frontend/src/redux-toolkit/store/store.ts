@@ -1,3 +1,4 @@
+import { cartApi } from "./../slices/cartSlice";
 import { imagesReducer, productsApi } from "./../slices/productSlice";
 import { logout, registerReducer, resetReducer } from "./../slices/usersSlice";
 // import { counterReducer } from "../slices/countslice";
@@ -12,6 +13,7 @@ export const store = configureStore({
   reducer: {
     [usersApi.reducerPath]: usersApi.reducer,
     [productsApi.reducerPath]: productsApi.reducer,
+    [cartApi.reducerPath]: cartApi.reducer,
     login: loginReducer,
     register: registerReducer,
     cart: cartReducer,
@@ -25,6 +27,7 @@ export const store = configureStore({
     getDefaultMiddleware().concat([
       usersApi.middleware,
       productsApi.middleware,
+      cartApi.middleware,
     ]),
   // comments: commentsReducer,
   // users: usersReducer,

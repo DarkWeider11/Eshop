@@ -13,6 +13,7 @@ import { Forgot } from "./pages/ForgotPassword";
 import { ResetPassword } from "./pages/ResetPassword";
 import { Products } from "./pages/Products";
 import { AppleProducts } from "./pages/AppleProducts";
+import { Cart } from "./pages/CartPage";
 
 const router = createBrowserRouter([
   {
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
   {
     path: "appleproducts",
     element: <AppleProducts />,
+  },
+  {
+    path: "cart",
+    element: <Cart />,
   },
 ]);
 

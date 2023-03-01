@@ -126,7 +126,6 @@ export function MainPage() {
                       <span>{el.product_description}</span>
                       <span className="price">${el.price}</span>
                     </div>
-                    <OnButton>Add to cart</OnButton>
                   </div>
                 ))}
               </div>

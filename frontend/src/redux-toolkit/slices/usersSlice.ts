@@ -12,6 +12,10 @@ interface LoginResponse {
   password: string;
   loginStatus: boolean;
 }
+interface LoginRequest {
+  usernameOrEmail: string;
+  password: string;
+}
 
 interface RegUser {
   email: string;
@@ -187,3 +191,34 @@ export const loginReducer = loginSlice.reducer;
 export const registerReducer = registerSlice.reducer;
 
 // export const logout = loginSlice.actions;
+
+// const onSubmit = async () => {
+//   try {
+//     const values = await form.validateFields();
+//     const { email, username, password } = values;
+
+//     let loginParam = {};
+//     if (email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+//       loginParam = { email, password };
+//     } else {
+//       loginParam = { username, password };
+//     }
+
+//     const result = await loginUsers(loginParam).unwrap();
+
+//     if (result && result.success === true) {
+//       notification.error({
+//         message: "Login failed",
+//         description: "The entered email/username and password are incorrect.",
+//       });
+//     } else {
+//       notification.success({
+//         message: "Login successful",
+//         description: "You have successfully logged in.",
+//       });
+//       navigate("/");
+//     }
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };

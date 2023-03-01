@@ -44,12 +44,6 @@ const ResetPassword = () => {
       navigate("/login");
     } catch (error) {
       console.error(error);
-      form.setFields([
-        {
-          name: "email",
-          errors: ["An error occurred. Please try again."],
-        },
-      ]);
     }
   };
 
@@ -59,7 +53,9 @@ const ResetPassword = () => {
         <Form.Item
           name="email"
           label="Email address"
-          rules={[{ required: true, message: "Please input your email address" }]}
+          rules={[
+            { required: true, message: "Please input your email address" },
+          ]}
           hasFeedback
         >
           <Input

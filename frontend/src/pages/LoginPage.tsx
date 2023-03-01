@@ -28,15 +28,16 @@ const Login = () => {
   const onSubmit = async () => {
     try {
       const values = await form.validateFields();
-      const { email, password } = values;
+      const { email, username, password } = values;
 
       const result = await loginUsers({
         email,
         password,
         user_id: 0,
-        username: "",
+        username,
         access_token: "",
         success: undefined,
+        loginStatus: false,
       }).unwrap();
 
       console.log(result);
@@ -62,29 +63,20 @@ const Login = () => {
       console.error(error);
     }
   };
-  // const onSubmit = () => {
-  //   loginUsers(form.getFieldsValue(true));
-  //   navigate("/");
-  // };
 
   return (
     <div>
       {/* <OnButton onClick={getUsers}>Click</OnButton> */}
       {/* <OnButton onClick={() => trigger()}>Click</OnButton> */}
-      <Form
-        // onFinish={onFinish}
-        // initialValues={{ remember: true }}
-        style={contentStyle}
-        form={form}
-      >
+      <Form style={contentStyle} form={form}>
         <Form.Item
-          name="email"
+          name="username"
           rules={[{ required: true, message: "Please input your username" }]}
           hasFeedback
         >
           <Input
             prefix={<UserOutlined className="site-form-item-icon" />}
-            placeholder="Email address"
+            placeholder="Email address or username"
             required
           ></Input>
         </Form.Item>
@@ -100,7 +92,7 @@ const Login = () => {
           ></Input.Password>
         </Form.Item>
         <Form.Item>
-          <Link to="/forgot">Forgot password</Link>
+          <Link to="/reset">Reset Password</Link>
         </Form.Item>
 
         <Form.Item>

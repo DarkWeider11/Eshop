@@ -1,10 +1,15 @@
-import { HomeOutlined, UserOutlined } from "@ant-design/icons";
+import {
+  AppstoreAddOutlined,
+  HomeOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 import {
   Avatar,
   Button,
   Col,
   Form,
   InputNumber,
+  notification,
   Row,
   Select,
   Slider,
@@ -28,6 +33,7 @@ import { useDispatch } from "react-redux";
 // import { addToCart } from "../redux-toolkit/slices/cartSlice";
 import { store } from "../redux-toolkit/store/store";
 import { addToCart } from "../redux-toolkit/slices/cartSlice";
+import { createGlobalStyle } from "styled-components";
 
 const contentStyle: React.CSSProperties = {
   maxWidth: "100%",
@@ -48,8 +54,15 @@ function Products() {
     price: inValue,
   });
   const dispatch = useDispatch();
-  const handleAddToCart = () => {
-    dispatch(addToCart(products));
+  const handleAddToCart = (id: number) => {
+    console.log(id);
+    const product = products?.find((el) => el.id === id);
+    console.log(product);
+    dispatch(addToCart(product));
+    notification.success({
+      message: "Product added to cart",
+      description: `${product?.name} has been added to your cart.`,
+    });
   };
   // const { data: queryProducts } = useFilterProductsQuery({
   //   query: inputValue,
@@ -61,13 +74,16 @@ function Products() {
     // manufacturer: InputManufacturer,
   });
 
-  const manufacturerOptions = products?.filter((product, index, self) =>
-    index === self.findIndex((p) => p.manufacturer === product.manufacturer)
-  ).map((product) => ({
-    key: product.id,
-    label: product.manufacturer,
-    value: product.manufacturer,
-  }));
+  const manufacturerOptions = products
+    ?.filter(
+      (product, index, self) =>
+        index === self.findIndex((p) => p.manufacturer === product.manufacturer)
+    )
+    .map((product) => ({
+      key: product.id,
+      label: product.manufacturer,
+      value: product.manufacturer,
+    }));
 
   const nameOptions = products?.map((el) => {
     return {
@@ -103,7 +119,10 @@ function Products() {
             onClick={({ key }) => {
               navigate(key);
             }}
-            items={[{ label: "Home Page", key: "/", icon: <HomeOutlined /> }]}
+            items={[
+              { label: "Home Page", key: "/", icon: <HomeOutlined /> },
+              { label: "Cart", key: "/cart", icon: <AppstoreAddOutlined /> },
+            ]}
           ></Menu>
         </Sider>
 
@@ -123,11 +142,6 @@ function Products() {
                   options={manufacturerOptions}
                   onChange={(val) => setInputManufacturer(val)}
                 />
-
-                {/* <Option value="manufacturer">Apple</Option>
-          <Option value="manufacturer">Samsung</Option>
-          <Option value="manufacturer">Xiaomi</Option> */}
-                {/* </Select> */}
               </Form.Item>
 
               <Form.Item label="Price" name="price"></Form.Item>
@@ -145,14 +159,7 @@ function Products() {
                   <InputNumber style={{ margin: "0 16px" }} value={inValue} />
                 </Col>
               </Row>
-              {/* <Row>
-        <Form.Item label="from" name="from" labelCol={{ span: 7 }}>
-          <InputNumber />
-        </Form.Item>
-        <Form.Item label="to" name="to" labelCol={{ span: 5 }}>
-          <InputNumber />
-        </Form.Item>
-      </Row> */}
+
               <Form.Item>
                 <Button
                   type="primary"
@@ -190,7 +197,7 @@ function Products() {
                             <span className="price">${el.price}</span>
                           </div>
 
-                          <OnButton onClick={handleAddToCart}>
+                          <OnButton onClick={() => handleAddToCart(el.id)}>
                             Add to cart
                           </OnButton>
                         </div>
