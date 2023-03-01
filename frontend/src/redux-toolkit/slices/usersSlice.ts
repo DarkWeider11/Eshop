@@ -27,6 +27,12 @@ interface RegUser {
 interface ResetPassword {
   username: string;
 }
+
+interface ChangePassword {
+  old_password: string;
+  new_password: string;
+  confirm_new_password: string;
+}
 // Define a type for the slice state
 // interface CounterState {
 //   value: number;
@@ -78,12 +84,21 @@ export const usersApi = createApi({
       },
       invalidatesTags: ["Users"],
     }),
+    changePassword: builder.mutation<void, ChangePassword>({
+      query: (changePasswordData) => ({
+        url: "/change-password",
+        method: "PATCH",
+        body: { changePasswordData },
+      }),
+      invalidatesTags: ["Users"],
+    }),
   }),
 });
 export const {
   useLoginUsersMutation,
   useRegisterUsersMutation,
   useResetPasswordMutation,
+  useChangePasswordMutation,
   // useGetUsersQuery,
   // useLazyGetUsersQuery,
   useGetUsersByIdMutation,
@@ -113,6 +128,12 @@ const initialRegState: RegUser = {
 };
 const initialResetState: ResetPassword = {
   username: "",
+};
+
+const initialChangeState: ChangePassword = {
+  old_password: "",
+  new_password: "",
+  confirm_new_password: "",
 };
 
 export const loginSlice = createSlice({
@@ -181,7 +202,31 @@ export const resetPasswordSlice = createSlice({
   },
 });
 
+// export const changePasswordSlice = createSlice({
+//   name: "change",
+//   initialState: initialChangeState,
+//   reducers: {
+//     resetChangePasswordState: (state) => {
+//       state.old_password = "";
+//       state.new_password = "";
+//       state.confirm_new_password = "";
+//     },
+//   },
+//   extraReducers: (builder) => {
+//     builder.addMatcher(
+//       usersApi.endpoints.changePassword.matchFulfilled,
+//       (state, { payload }) => {
+//         console.log(payload);
+//         state.old_password = payload.old_password;
+//         state.new_password = payload.new_password;
+//         state.confirm_new_password = payload.confirm_new_password;
+//       }
+//     );
+//   },
+// });
+
 export const { logout, setLoginStatus } = loginSlice.actions;
+// export const changeReducer = changePasswordSlice.reducer;
 export const resetReducer = resetPasswordSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type

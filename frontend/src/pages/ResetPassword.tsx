@@ -20,6 +20,7 @@ const ResetPassword = () => {
   const [resetPassword] = useResetPasswordMutation();
 
   const onSubmit = async () => {
+    navigate("/login");
     try {
       const values = await form.validateFields();
       const username = values.username;
@@ -41,7 +42,7 @@ const ResetPassword = () => {
       );
 
       console.log(response);
-      navigate("/login");
+      // navigate("/login");
     } catch (error) {
       console.error(error);
     }

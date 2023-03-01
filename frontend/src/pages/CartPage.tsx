@@ -125,15 +125,9 @@ function Cart() {
                             ${cartItems.price}
                           </div>
                           <div className="cart-product-quantity">
-                            <OnButton>-</OnButton>
                             <div className="count">
                               {cartItems.cartQuantity}
                             </div>
-                            <button
-                              onClick={() => handleIncrement(cartItems.id)}
-                            >
-                              +
-                            </button>
                           </div>
                           <div className="cart-product-total-price">
                             ${cartItems.price * cartItems.cartQuantity}
