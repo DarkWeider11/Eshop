@@ -25,7 +25,10 @@ interface FilterProducts {
   name?: string;
   manufacturer?: string;
   price?: number;
+  price_min?: number;
+  price_max?: number;
 }
+
 
 export const productsApi = createApi({
   reducerPath: "productsApi",
@@ -53,14 +56,22 @@ export const productsApi = createApi({
       },
       providesTags: ["Products"],
     }),
-    filterProducts: builder.query<ProductsResponse[], FilterProducts>({
-      query: ({ query = "", manufacturer = "", price = "" }) => {
-        console.log(query);
+    // filterProducts: builder.query<ProductsResponse[], FilterProducts>({
+    //   query: ({ query = "", manufacturer = "", price = "" }) => {
+    //     console.log(query);
 
-        return `/produs-filter?name=${query}&manufacturer=${manufacturer}&price=${price}`;
+    //     return `/produs-filter?name=${query}&manufacturer=${manufacturer}&price=${price}`;
+    //   },
+    //   providesTags: ["Products"],
+    // }),
+    filterProducts: builder.query<ProductsResponse[], FilterProducts>({
+      query: ({ name = "", manufacturer = "", price_min = 0, price_max = 0 }) => {
+        const queryString = `name=${name}&manufacturer=${manufacturer}&price_min=${price_min}&price_max=${price_max}`;
+        return `/produs-filter?${queryString}`;
       },
       providesTags: ["Products"],
     }),
+    
   }),
 });
 export const {

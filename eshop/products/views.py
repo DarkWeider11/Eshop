@@ -9,7 +9,8 @@ class ProdusFilter(django_filters.FilterSet):
     
     name = django_filters.ChoiceFilter(choices=models.Produs.objects.order_by('name').values_list('name', 'name').distinct())
     manufacturer = django_filters.ChoiceFilter(choices=models.Produs.objects.order_by('manufacturer').values_list('manufacturer', 'manufacturer').distinct())
-    price = django_filters.RangeFilter()
+    price = django_filters.NumberFilter(field_name='price', lookup_expr='range')
+
     class Meta:
         model = models.Produs
 
