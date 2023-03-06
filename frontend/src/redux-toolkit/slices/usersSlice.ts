@@ -25,7 +25,7 @@ interface RegUser {
 }
 
 interface ResetPassword {
-  email: string;
+  username: string;
 }
 // Define a type for the slice state
 // interface CounterState {
@@ -69,11 +69,11 @@ export const usersApi = createApi({
       invalidatesTags: ["Users"],
     }),
     resetPassword: builder.mutation<ResetPassword, ResetPassword>({
-      query: ({ email }) => {
+      query: ({ username }) => {
         return {
           url: "/reset-password",
           method: "POST",
-          body: { email },
+          body: { username },
         };
       },
       invalidatesTags: ["Users"],
@@ -112,7 +112,7 @@ const initialRegState: RegUser = {
   confirm_password: "",
 };
 const initialResetState: ResetPassword = {
-  email: "",
+  username: "",
 };
 
 export const loginSlice = createSlice({
@@ -163,11 +163,11 @@ export const resetPasswordSlice = createSlice({
   name: "reset",
   initialState: initialResetState,
   reducers: {
-    setEmail: (state, action: PayloadAction<string>) => {
-      state.email = action.payload;
+    setUsername: (state, action: PayloadAction<string>) => {
+      state.username = action.payload;
     },
     reset: (state) => {
-      state.email = "";
+      state.username = "";
     },
   },
   extraReducers: (builder) => {
@@ -175,7 +175,7 @@ export const resetPasswordSlice = createSlice({
       usersApi.endpoints.resetPassword.matchFulfilled,
       (state, { payload }) => {
         console.log(payload);
-        state.email = payload.email;
+        state.username = payload.username;
       }
     );
   },
@@ -189,36 +189,3 @@ export const resetReducer = resetPasswordSlice.actions;
 
 export const loginReducer = loginSlice.reducer;
 export const registerReducer = registerSlice.reducer;
-
-// export const logout = loginSlice.actions;
-
-// const onSubmit = async () => {
-//   try {
-//     const values = await form.validateFields();
-//     const { email, username, password } = values;
-
-//     let loginParam = {};
-//     if (email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-//       loginParam = { email, password };
-//     } else {
-//       loginParam = { username, password };
-//     }
-
-//     const result = await loginUsers(loginParam).unwrap();
-
-//     if (result && result.success === true) {
-//       notification.error({
-//         message: "Login failed",
-//         description: "The entered email/username and password are incorrect.",
-//       });
-//     } else {
-//       notification.success({
-//         message: "Login successful",
-//         description: "You have successfully logged in.",
-//       });
-//       navigate("/");
-//     }
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };

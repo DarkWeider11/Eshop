@@ -4,6 +4,7 @@ import {
   LogoutOutlined,
   UserAddOutlined,
 } from "@ant-design/icons";
+import notification from "antd/es/notification";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useAppDispatch } from "../../hooks/hooks";
@@ -16,7 +17,10 @@ export function LoginRegister() {
   // const loginStatus = useSelector((state) => state.users.loginStatus);
   const handlelogout = () => {
     dispatch(logout());
-    // dispatch(setLoginStatus(false));
+    notification.success({
+      message: "Logged out",
+      description: "You have been successfully logged out.",
+    });
   };
 
   return (

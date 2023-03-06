@@ -13,8 +13,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { OnButton } from "../components/Buttons/Button";
 import { useAppSelector } from "../hooks/hooks";
-import { cartReducer, removeFromCart } from "../redux-toolkit/slices/cartSlice";
+import {
+  addToCart,
+  cartReducer,
+  getTotals,
+  removeFromCart,
+} from "../redux-toolkit/slices/cartSlice";
 import "../global.css";
+import { useEffect } from "react";
+import notification from "antd/es/notification";
 
 function Cart() {
   const navigate = useNavigate();
@@ -24,8 +31,19 @@ function Cart() {
 
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(getTotals());
+  }, [cart, dispatch]);
+
   const handleRemoveFromCart = (id: number) => {
     dispatch(removeFromCart({ id }));
+    notification.success({
+      message: "Item removed from cart",
+    });
+  };
+
+  const handleIncrement = (id: number) => {
+    dispatch(incrementQuantity({ id }));
   };
 
   return (
@@ -111,7 +129,11 @@ function Cart() {
                             <div className="count">
                               {cartItems.cartQuantity}
                             </div>
-                            <OnButton>+</OnButton>
+                            <button
+                              onClick={() => handleIncrement(cartItems.id)}
+                            >
+                              +
+                            </button>
                           </div>
                           <div className="cart-product-total-price">
                             ${cartItems.price * cartItems.cartQuantity}
@@ -145,3 +167,6 @@ function Cart() {
 }
 
 export { Cart };
+function incrementQuantity(arg0: { id: any }): any {
+  throw new Error("Function not implemented.");
+}

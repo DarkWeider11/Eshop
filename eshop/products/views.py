@@ -5,6 +5,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 import django_filters
 
+                                                
 class ProdusFilter(django_filters.FilterSet):
     
     name = django_filters.ChoiceFilter(choices=models.Produs.objects.order_by('name').values_list('name', 'name').distinct())
