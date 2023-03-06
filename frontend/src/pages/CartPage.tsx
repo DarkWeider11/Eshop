@@ -113,6 +113,7 @@ function Cart() {
                             <div>
                               <h3>{cartItems.name}</h3>
                               <OnButton
+                                type="primary"
                                 onClick={() =>
                                   handleRemoveFromCart(cartItems.id)
                                 }
@@ -125,15 +126,17 @@ function Cart() {
                             ${cartItems.price}
                           </div>
                           <div className="cart-product-quantity">
-                            <OnButton>-</OnButton>
                             <div className="count">
                               {cartItems.cartQuantity}
                             </div>
+<<<<<<< HEAD
                             <button
                               onClick={() => handleIncrement(cartItems.id)}
                             >
                               +
                             </button>
+=======
+>>>>>>> 6a3ce23de72e79a2701836f1ad3abca5c7819827
                           </div>
                           <div className="cart-product-total-price">
                             ${cartItems.price * cartItems.cartQuantity}

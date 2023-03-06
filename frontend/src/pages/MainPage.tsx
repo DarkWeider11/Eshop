@@ -9,6 +9,7 @@ import {
 } from "@ant-design/icons";
 import Layout, { Content, Footer } from "antd/es/layout/layout";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Bar } from "../components/Bar/Bar";
 import { Box } from "../components/Box/Box";
 import { OnButton } from "../components/Buttons/Button";
@@ -30,6 +31,8 @@ const contentStyle: React.CSSProperties = {
 };
 
 export function MainPage() {
+  const navigate = useNavigate();
+
   const { data: products, error, isLoading } = useGetProductsQuery({});
   return (
     <Layout>
@@ -61,7 +64,7 @@ export function MainPage() {
                 <Image
                   preview={false}
                   src="./src/assets/images/asus.webp"
-                  height={550}
+                  height={650}
                   max-width="100%"
                 ></Image>
               </a>
@@ -71,7 +74,7 @@ export function MainPage() {
                 <Image
                   preview={false}
                   src="./src/assets/images/watch.webp"
-                  height={550}
+                  height={650}
                   max-width="100%"
                 ></Image>
               </a>
@@ -81,7 +84,7 @@ export function MainPage() {
                 <Image
                   preview={false}
                   src="./src/assets/images/samsung.webp"
-                  height={550}
+                  height={650}
                   max-width="100%"
                 ></Image>
               </a>
@@ -91,7 +94,7 @@ export function MainPage() {
                 <Image
                   preview={false}
                   src="./src/assets/images/macbook.webp"
-                  height={550}
+                  height={650}
                   width={1540}
                 ></Image>
               </a>
@@ -155,7 +158,7 @@ export function MainPage() {
                   src="./src/assets/images/s23.webp"
                   // height={450}
                   // width={1540}
-                  height={550}
+                  height={650}
                   max-width="100%"
                 ></Image>
               </a>
@@ -165,7 +168,7 @@ export function MainPage() {
                 <Image
                   preview={false}
                   src="./src/assets/images/ipad.webp"
-                  height={550}
+                  height={650}
                   max-width="100%"
                 ></Image>
               </a>
@@ -175,7 +178,7 @@ export function MainPage() {
                 <Image
                   preview={false}
                   src="./src/assets/images/pod.webp"
-                  height={550}
+                  height={650}
                   max-width="100%"
                 ></Image>
               </a>
@@ -185,8 +188,8 @@ export function MainPage() {
                 <Image
                   preview={false}
                   src="./src/assets/images/air.webp"
-                  height={550}
-                  width={1540}
+                  height={650}
+                  width={1690}
                 ></Image>
               </a>
             </div>
@@ -194,20 +197,13 @@ export function MainPage() {
         </Box>
 
         <Box display="flex" gap={28} alignSelf="center" marginLeft={32}>
-          <OnButton
-            width={86}
-            height={86}
-            shape="circle"
-            href="https://darwin.md/smartphone_apple-iphone-xr-64gb-white.html"
-          >
-            <AppleOutlined style={{ fontSize: 50, color: "gray" }} />
+          <OnButton width={86} height={86} shape="circle">
+            <AppleOutlined
+              style={{ fontSize: 50, color: "gray" }}
+              key="/products"
+            />
           </OnButton>
-          <OnButton
-            width={86}
-            height={86}
-            shape="circle"
-            href="https://darwin.md/smartphone_apple-iphone-xr-64gb-white.html"
-          >
+          <OnButton width={86} height={86} shape="circle">
             <AndroidOutlined
               style={{ fontSize: 50, color: "gray", alignItems: "center" }}
             />

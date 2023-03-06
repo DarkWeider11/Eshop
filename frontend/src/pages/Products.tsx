@@ -218,6 +218,8 @@ function Products() {
                   fontWeight: "bold",
                   backgroundColor: "#1890ff",
                   color: "#fff",
+                  alignItems: "center",
+                  display: "flex",
                   border: "none",
                   boxShadow: "0 2px 8px rgba(0, 0, 0, 0.15)",
                   transition: "all 0.3s ease",

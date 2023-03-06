@@ -20,12 +20,12 @@ const ResetPassword = () => {
   const [resetPassword] = useResetPasswordMutation();
 
   const onSubmit = async () => {
+    navigate("/login");
     try {
       const values = await form.validateFields();
       const username = values.username;
       await resetPassword({ username });
 
-      // Send reset password email using Mailtrap.io
       const response = await axios.post(
         "sandbox.smtp.mailtrap.io",
         {
@@ -34,14 +34,14 @@ const ResetPassword = () => {
         },
         {
           auth: {
-            username: "ec76d91a7542c4", // Replace with your Mailtrap username
-            password: "09b54b6c58695c", // Replace with your Mailtrap password
+            username: "ec76d91a7542c4",
+            password: "09b54b6c58695c",
           },
         }
       );
 
       console.log(response);
-      navigate("/login");
+      // navigate("/login");
     } catch (error) {
       console.error(error);
     }
