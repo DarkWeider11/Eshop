@@ -26,15 +26,12 @@ interface RegUser {
 
 interface ResetPassword {
   username: string;
-<<<<<<< HEAD
-=======
 }
 
 interface ChangePassword {
   old_password: string;
   new_password: string;
   confirm_new_password: string;
->>>>>>> 6a3ce23de72e79a2701836f1ad3abca5c7819827
 }
 // Define a type for the slice state
 // interface CounterState {
@@ -131,15 +128,12 @@ const initialRegState: RegUser = {
 };
 const initialResetState: ResetPassword = {
   username: "",
-<<<<<<< HEAD
-=======
 };
 
 const initialChangeState: ChangePassword = {
   old_password: "",
   new_password: "",
   confirm_new_password: "",
->>>>>>> 6a3ce23de72e79a2701836f1ad3abca5c7819827
 };
 
 export const loginSlice = createSlice({

@@ -140,9 +140,4 @@ def change_password_view(request):
     user_token.refresh_token = None
     user_token.logout_time = datetime.now()
     user_token.save()
-<<<<<<< HEAD
-
     return response.Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-=======
->>>>>>> 6a3ce23de72e79a2701836f1ad3abca5c7819827
-
